@@ -4,7 +4,7 @@
 
 От друга я получила .com файл с его программой - эмулятор проверки пароля. Программа просит ввести пароль и в зависимости от правильности выдает пользователю доступ к данным. В этой программе заложено две уязвимости. Моя задача - найти эти уязвимости и получить доступ к программе, не зная при этом пароля.
 Пример работы программы:
-<img width="1008" height="360" alt="image" src="https://github.com/user-attachments/assets/2bb10f21-d99f-4ebe-a7df-49fa7283e245" />
+<img width="80%" alt="image" src="https://github.com/user-attachments/assets/2bb10f21-d99f-4ebe-a7df-49fa7283e245" />
 
 (я напишу про взлом двух разных программ, в каждой из которых опишу по одной из уязвимостей)
 
@@ -14,7 +14,7 @@
 ### Функционал программы
 Для начала рассмотрим функционал полученной программы.
 
-<img width="410" height="79" alt="image" src="https://github.com/user-attachments/assets/c4afed4d-e462-4dde-86bd-230d2b92bb7c" />
+<img width="40%" alt="image" src="https://github.com/user-attachments/assets/c4afed4d-e462-4dde-86bd-230d2b92bb7c" />
 
 Программа запрашивает у нас пароль из командной строки. Конец пароля обозначается символом '$'. 
 
@@ -24,23 +24,23 @@
 
 Посмотрим на дезассимилированный код программы через turbo debugger. Будем пропускать команды, пока командна не попросит ввести очередной символ.
 
-<img width="575" height="224" alt="image" src="https://github.com/user-attachments/assets/86bd4759-ba40-46da-8061-e01ee1f612d0" />
+<img width="60%" alt="image" src="https://github.com/user-attachments/assets/86bd4759-ba40-46da-8061-e01ee1f612d0" />
 
 Мы нашли тело цикла, записывающего пользовательскую строку. Заметим, что строка кладется в стек, причем на нее выделено 8 байт.
 
-<img width="220" height="146" alt="image" src="https://github.com/user-attachments/assets/a900fe34-6a08-486b-a8c4-880000b7180e" />
+<img width="20%" alt="image" src="https://github.com/user-attachments/assets/a900fe34-6a08-486b-a8c4-880000b7180e" />
 
 Тут я записала 6 символов 'a' (код - 61)
 
 После того, как я ввела символ '$' начался цикл проверки
 
-<img width="600" height="262" alt="image" src="https://github.com/user-attachments/assets/eb63b069-d74c-48c5-a6a9-c233e5f27ba9" />
+<img width="60%" alt="image" src="https://github.com/user-attachments/assets/eb63b069-d74c-48c5-a6a9-c233e5f27ba9" />
 
 Он сравнивает символ, взятый из стека, с символом из памяти, где лежит верный пароль. Если символы оказываются неравны, происходит прыжок на команду 014F, которая прибавляет к sp 8, достает адрес возврата из стека и производит выход из функции. Здесь становится понятно, что программа не контролирует введенное мной количество символов, поэтому я могу подменить адрес возврата из процедуры, он лежит в стеке на позиции ```ss:FFFC►010a```, значит мне надо ввести адрес возврата 9ым и 10ым символами пароля.
 
 Теперь посмотрим, что будет, если пароль введен верно. После того, как цикл проверки завершится в команде происходит прыжок по адресу 0114
 
-<img width="633" height="155" alt="image" src="https://github.com/user-attachments/assets/8e516867-0d9f-43a1-9e56-56f28462d3c7" />
+<img width="60%" alt="image" src="https://github.com/user-attachments/assets/8e516867-0d9f-43a1-9e56-56f28462d3c7" />
 
 Именно там лежит вывод, дающий доступ (access granted). 
 Значит, нам нужно туда прыгнуть. В ascii-таблице найдем символы, соответствующие номерам 01 и 14.
@@ -49,7 +49,7 @@
 
 В обратном порядке (из-за того что кладем мы символы от младшим адресам к старшим) введем нужную комбинацию символов.
 
-<img width="480" height="75" alt="image" src="https://github.com/user-attachments/assets/e46f1c2a-4a31-45d3-8394-12e08c80fdc9" />
+<img width="40%" alt="image" src="https://github.com/user-attachments/assets/e46f1c2a-4a31-45d3-8394-12e08c80fdc9" />
 
 Готово!
 
@@ -62,25 +62,25 @@
 
 Аналогично поиску предыдущей уязвимости, доберемся сразу до функции ввода пользовательской строки. 
 
-<img width="590" height="205" alt="image" src="https://github.com/user-attachments/assets/df7ee5a9-e58c-4cec-aae8-de4c0c721d3e" />
+<img width="60%" alt="image" src="https://github.com/user-attachments/assets/df7ee5a9-e58c-4cec-aae8-de4c0c721d3e" />
 
 Здесь строка кладется уже не в стек, а в буфер в code segment'е, начиная с адреса 0128. Посмотрим что там хранится:
 
-<img width="585" height="306" alt="image" src="https://github.com/user-attachments/assets/8ed56e28-3b86-4b91-8807-f9bcae188a36" />
+<img width="60%" alt="image" src="https://github.com/user-attachments/assets/8ed56e28-3b86-4b91-8807-f9bcae188a36" />
 
 Мы видим буфер, расположенный в части кода, размером в 8 байт. До ввода он полностью заполнен nop'ами - просто завершить ввод пароля ничего не вводя не получится.
 После него лежат 4 строки кода, и еще один jmp, который перепрыгивает уже второй буфер.
 
-<img width="609" height="339" alt="image" src="https://github.com/user-attachments/assets/ab0079bb-7f5c-4315-85b3-9979f49ed707" />
+<img width="60%" alt="image" src="https://github.com/user-attachments/assets/ab0079bb-7f5c-4315-85b3-9979f49ed707" />
 
 Далее расположен цикл, посимвольно сравнивающий два пароля - пользовательский берется по адресу 0128 (значение si), второй - 013С (значение di). 
 
-<img width="602" height="180" alt="image" src="https://github.com/user-attachments/assets/8d25ca59-18de-4ce9-acb2-325c72522707" />
+<img width="60%" alt="image" src="https://github.com/user-attachments/assets/8d25ca59-18de-4ce9-acb2-325c72522707" />
 
 Программа никак не ограничивает количество введенных мною символов - значит, я могу затереть своим вводом участок, где происходит сравнение двух паролей. Сразу после, если не произошел прыжок на участок кода с отклонением доступа - 016С, доступ выдается. Получается, я могу просто заменить все до 0144ой команды включительно "бесполезными" операциями. Например, такой соответствует 'p' - это jo со смещением 70, которое никогда не произойдет, так как в начале выполнения все флаги обнулены. 
 Нам нужно затереть команды от 128h до 150h - то есть, 40 штук. Введем 40 раз 'p' и посмотрим на результат:
 
-<img width="755" height="293" alt="image" src="https://github.com/user-attachments/assets/4371c458-6e95-4fbb-95f5-dd4bffb35254" />
+<img width="80%" alt="image" src="https://github.com/user-attachments/assets/4371c458-6e95-4fbb-95f5-dd4bffb35254" />
 
 Готово!
 
