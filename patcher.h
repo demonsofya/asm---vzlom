@@ -19,15 +19,14 @@ const int TEXT_SIZE = 12;
 //-----------------------------------------------------------------------------
 
 HWND CreateVzlomWindow();
-void DestroyVzlomWindow();
 
 bool CheckIfButtonPressed();
 
 //-----------------------------------------------------------------------------
 
 struct mouse_t {
-    int x_cord;
-    int y_cord;
+    double x_cord;
+    double y_cord;
     //bool mouse_button_status;
 };
 

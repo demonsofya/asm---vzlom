@@ -15,13 +15,13 @@ HWND CreateVzlomWindow() {
     HWND NewVzlomWindow = txCreateWindow(WINDOW_X_SIZE, WINDOW_Y_SIZE, true);
 
     //txSetColor(TX_BROWN);
-    txSelectFont("Comic Sans MS", TEXT_SIZE);
+    //txSelectFont("Comic Sans MS", TEXT_SIZE);
 
-    //HDC button_image = txLoadImage("button.bmp");
+    HDC button_image = txLoadImage("button.bmp");
 
     //txBitBlt(txDC(), WINDOW_X_SIZE - BUTTON_IMG_WIDTH/2, WINDOW_Y_SIZE - BUTTON_IMG_HEIGHT, 0, 0, button_image);
 
-    //txBitBlt(0, 0, button_image);
+    txBitBlt ( 0, 0, button_image);
 
     return NewVzlomWindow;
 }
