@@ -1,34 +1,55 @@
+#include "TXLib.h"
+
 #include <assert.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
+#include "patcher.h"
 
-const char *DEFAULT_CRACK_FILE_NAME = "CRACKF_1.COM";
+HWND VzlomWindow = CreateVzlomWindow();
 
-const int COMPARE_CYCLE_BEGIN = 0x4a;
-const int COMPARE_CYCLE_END   = 0x51;
-const int NOP_COMMAND         = 0x90;
+HWND CreateVzlomWindow() {
 
+    HWND NewVzlomWindow = txCreateWindow(WINDOW_X_SIZE, WINDOW_Y_SIZE, true);
 
-int main(int argc, char *argv[]) {
+    //txSetColor(TX_BROWN);
+    txSelectFont("Comic Sans MS", TEXT_SIZE);
 
-    int commands_count = 0;
-    int *output_arr = NULL;
+    //HDC button_image = txLoadImage("button.bmp");
 
-    FILE *file_to_crack = NULL;
+    //txBitBlt(txDC(), WINDOW_X_SIZE - BUTTON_IMG_WIDTH/2, WINDOW_Y_SIZE - BUTTON_IMG_HEIGHT, 0, 0, button_image);
 
-    if (argc > 1)
-        file_to_crack = fopen(argv[1], "rb+");
-    else
-        file_to_crack = fopen(DEFAULT_CRACK_FILE_NAME, "rb+");
+    //txBitBlt(0, 0, button_image);
 
-    assert(file_to_crack);
-
-    fseek(file_to_crack, COMPARE_CYCLE_BEGIN, SEEK_SET);
-
-    for (int i = 0; i <= COMPARE_CYCLE_END - COMPARE_CYCLE_BEGIN; i++)
-        fprintf(file_to_crack, "%c", NOP_COMMAND);
-
-    fclose(file_to_crack);
-    return 0;
+    return NewVzlomWindow;
 }
+
+bool CheckIfButtonPressed() {
+
+    mouse_t mouse = {};
+
+    while (true) {
+        if (txMouseButtons() & 2) {         // левая кнопка мыши
+            mouse.x_cord = txMouseX();
+            mouse.y_cord = txMouseY();
+
+            if (true)
+                return true;
+
+            return false;
+        }
+    }
+
+    return false;
+}
+
+
+
+
+
+
+
+
+
