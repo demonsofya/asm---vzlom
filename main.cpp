@@ -14,6 +14,8 @@ const int NOP_COMMAND         = 0x90;
 
 int main(int argc, char *argv[]) {
 
+    HWND VzlomWindow = CreateVzlomWindow();
+
     int commands_count = 0;
     int *output_arr = NULL;
 
@@ -33,6 +35,9 @@ int main(int argc, char *argv[]) {
             fprintf(file_to_crack, "%c", NOP_COMMAND);
 
         fclose(file_to_crack);
+        
+        txSleep(17000);
+        CreateAnimationOnWindow();
     }
     return 0;
 }

@@ -14,13 +14,19 @@ const int BUTTON_IMG_HEIGHT = 448;
 const int SCREEN_WIDTH  = 1920;
 const int SCREEN_HEIGHT = 1200;
 
-const int TEXT_SIZE = 12;
+const int TEXT_SIZE = 24;
+
+const HDC button_image          = txLoadImage("button.bmp");
+const HDC pressed_button_image  = txLoadImage("button_pressed.bmp");
 
 //-----------------------------------------------------------------------------
 
 HWND CreateVzlomWindow();
+void DestroyAkinatorWindow();
 
 bool CheckIfButtonPressed();
+bool CreateAnimationOnWindow();
+void ChangeTexColorAndSleep(int color);
 
 //-----------------------------------------------------------------------------
 

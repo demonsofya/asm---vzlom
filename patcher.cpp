@@ -8,22 +8,26 @@
 
 #include "patcher.h"
 
-HWND VzlomWindow = CreateVzlomWindow();
+//HWND VzlomWindow = CreateVzlomWindow();
 
 HWND CreateVzlomWindow() {
 
-    HWND NewVzlomWindow = txCreateWindow(WINDOW_X_SIZE, WINDOW_Y_SIZE, true);
+    HWND NewVzlomWindow = txCreateWindow(BUTTON_IMG_WIDTH, BUTTON_IMG_HEIGHT, true);
 
-    //txSetColor(TX_BROWN);
-    //txSelectFont("Comic Sans MS", TEXT_SIZE);
+    txSetColor(TX_BLACK);
+    txSetFillColor(TX_WHITE);
+    txSelectFont("Comic Sans MS", TEXT_SIZE);
 
-    HDC button_image = txLoadImage("button.bmp");
+    txBitBlt(0, 0, button_image);
+    txPlaySound("ringtone.wav", SND_ASYNC);
 
-    //txBitBlt(txDC(), WINDOW_X_SIZE - BUTTON_IMG_WIDTH/2, WINDOW_Y_SIZE - BUTTON_IMG_HEIGHT, 0, 0, button_image);
-
-    txBitBlt ( 0, 0, button_image);
-
+    //atexit(DestroyAkinatorWindow);
     return NewVzlomWindow;
+}
+
+void DestroyAkinatorWindow() {
+
+    txDestroyWindow();
 }
 
 bool CheckIfButtonPressed() {
@@ -35,14 +39,40 @@ bool CheckIfButtonPressed() {
             mouse.x_cord = txMouseX();
             mouse.y_cord = txMouseY();
 
-            if (true)
+            if (mouse.x_cord > BUTTON_IMG_WIDTH*0.25   && mouse.x_cord < BUTTON_IMG_WIDTH*0.75 && 
+                mouse.y_cord > BUTTON_IMG_HEIGHT*0.35 && mouse.y_cord < BUTTON_IMG_HEIGHT*0.8) {
+                
+                txBitBlt(txDC(), 0, 0, 0, 0, pressed_button_image);
+                txTextOut(200, 0, "ÈÄÅÒ ÂÇËÎÌ ÆÎÏÛ...",  txDC());
+                txPlaySound("murder_in_my_mind.wav", SND_ASYNC);
                 return true;
+            }
 
+            txTextOut(250, 0, "ÂÇËÎÌ ÎÒÌÅÍÀ",  txDC());
             return false;
         }
     }
 
     return false;
+}
+
+bool CreateAnimationOnWindow() {
+    
+    while(!txMouseButtons()) {
+
+        ChangeTexColorAndSleep(TX_BLUE);
+        ChangeTexColorAndSleep(TX_RED);
+    }
+
+    txPlaySound(NULL, SND_ASYNC);
+    return true;
+}
+
+void ChangeTexColorAndSleep(int color) {
+
+    txSetColor(color);
+    txTextOut(200, 0, "ÈÄÅÒ ÂÇËÎÌ ÆÎÏÛ...",  txDC());
+    txSleep(100);
 }
 
 

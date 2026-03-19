@@ -1,7 +1,7 @@
 //=================================================================================================================
 //           TXLib.h - Библиотека Тупого Художника (The Dumb Artist Library, TX Library, TXLib) - (C) Ilya Dedinsky
 //=================================================================================================================
-//           [These sections are for folding control  in Code::Blocks]         [$Date: 2023-11-13 01:54:42 +0400 $]
+//           [These sections are for folding control  in Code::Blocks]         [$Date: 2025-12-31 23:02:50 +0400 $]
 //           [Best viewed with "Fold all on file open" option enabled]         [Best screen/page width = 120 chars]
 //                                                                                                                 
 //           [If RUSSIAN CHARS below are UNREADABLE, check this file codepage. It should be CP1251, NOT UTF-8 etc.]
@@ -15,9 +15,9 @@
 //!          Кафедра информатики и вычислительной математики МФТИ @n
 //!          Кафедра системного программирования МФТИ </small></i>
 //!
-//!          $Version: 00173a, Revision: 173 $
+//!          $Version: 00173a, Revision: 175 $
 //!          $Copyright: (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru> $
-//!          $Date: 2023-11-13 01:54:42 +0400 $
+//!          $Date: 2025-12-31 23:02:50 +0400 $
 //!
 //!          TX Library -- компактная библиотека двумерной графики для MS Windows на С++. Это небольшая "песочница"
 //!          для начинающих реализована с целью помочь им в изучении простейших принципов программирования.
@@ -45,11 +45,11 @@
 //!          программирования, чтобы облегчить ее установку и работу для начинающих.
 //!
 //! @note    Файл библиотеки большой и может компилироваться долго, поэтому обратите внимание на возможность
-//!          использования прекомпилированной версии в проектак с раздельной компиляцией. См. макрос @ref TX_COMPILED.
+//!          использования прекомпилированной версии в проектах с раздельной компиляцией. См. макрос @ref TX_COMPILED.
 //!          Также можно определить макрос @c WIN32_LEAN_AND_MEAN до включения @c TXLib.h в программу.
 //!
 //!       -# <a href=https://sourceforge.net/projects/txlib/files/latest/download>Скачайте</a> программу установки,
-//!          загрузка по ссылке начнется автоматически. Ее имя имеет вид <tt>TXLib-v0173a.rar.exe.</tt> Цифры могут
+//!          загрузка по ссылке начнется автоматически. Ее имя имеет вид <tt>TXLib-v0173a-rar.exe.</tt> Цифры могут
 //!          отличаться (это номер версии), расширение @c .exe может не отображаться, в зависимости от настроек Windows.
 //!       -# Запустите скачанную программу установки. Программа установки -- это саморазархивирующийся
 //!          архив, она не требует особых прав для запуска.
@@ -61,36 +61,35 @@
 //!          -  Если при установке происходят ошибки или запуск программы установки невозможен, откройте файл библиотеки
 //!             @c TXLib.h <a href=http://storage.ded32.net.ru/Lib/TX/TXUpdate/TXLib.h> отсюда</a>, сохраните (Ctrl+S)
 //!             его в свою рабочую папку, где вы сохраняете свои программы.
-//!             Пользуйтесь <a href=http://storage.ded32.net.ru/Lib/TX/TXUpdate/Doc/HTML.ru/index.htm> системой помощи
-//!             онлайн.</a>
+//!             Пользуйтесь <a href=http://storage.ded32.net.ru/Lib/TX/TXUpdate/Doc/HTML.ru/index.htm> системой помощи онлайн.</a>
 //!             @nn
 //!       -# Для полной обработки ошибок библиотеке требуются модули, которые желательно установить (скопировать) в папку
 //!          Windows. Устанавливать эти библиотеки не обязательно. Программы, использующие TXLib, запускаются и без них.
 //!          @nn
 //!          -# Модули библиотеки Microsoft DBGHELP для доступа к отладочным символам Microsoft:
-//!             - @c dbghelp32.dll или dbghe32.dll - для 32-разрядных программ (либо @c dbghelp.dll, 32-разрядная версия),
-//!             - @c dbghelp64.dll или dbghe64.dll - для 64-разрядных программ (либо @c dbghelp.dll, 64-разрядная версия),
+//!             - @c dbghelp32.dll, dbgco32.dll, symsrv32.dll, symsrv.yes - для 32-разрядных программ,
+//!             - @c dbghelp64.dll, dbgco64.dll, symsrv64.dll, symsrv.yes - для 64-разрядных программ,
 //!               @nn
-//!          -# Модули библиотеки <a href=https://github.com/jrfonseca/drmingw/releases>DrMinGW</a> для доступа
-//!             к отладочным символам MinGW компилятора GCC @c g++:
-//!             - @c mgwhelp32.dll или mgwhe32.dll - для 32-разрядных программ (либо @c mgwhelp.dll, 32-разрядная версия),
-//!             - @c mgwhelp64.dll или mgwhe64.dll - для 64-разрядных программ (либо @c mgwhelp.dll, 64-разрядная версия).
+//!          -# Модули библиотеки <a href=https://github.com/jrfonseca/drmingw/releases>DrMinGW</a> (автор Jose Fonseca)
+//!             для доступа к отладочным символам MinGW компилятора GCC @c g++:
+//!             - @c mgwhelp32.dll - для 32-разрядных программ,
+//!             - @c mgwhelp64.dll - для 64-разрядных программ.
 //!
 //!          Суффиксы @c 32 и @c 64 помогают отличить 32-разрядную и 64-разрядную версии DLL-файлов библиотек.
-//!          Например, @c dbghelp32.dll -- это просто переименованная 32-разрядная версия файла @c dbghelp.dll.
 //!
 //!          <b>Cамораспаковывающийся архив с этими библиотеками можно скачать
 //!          <a href=http://storage.ded32.net.ru/Lib/TX/TXLib-SupportDLLs.rar.exe>здесь.</a></b>
 //!
 //!          Для наиболее полной диагностики ошибок полностью отключайте оптимизацию при компиляции. Например,
-//!          для компилятора GCC @c g++ -- с помощью ключа командной строки @c -O0. Разные среды программирования
-//!          позволяют задать эти ключи по-разному, например, в CodeBlocks через Главное меню -- Settings --
-//!          Compiler -- (Global Compiler Settings) -- (Compiler Settings) -- Other Options.
+//!          для компилятора GCC @c g++ -- с помощью ключа командной строки @c -O0. <b>Обязательно указывайте ключ @c -g.</b>
+//!          Разные среды программирования позволяют задать эти ключи по-разному, например, в CodeBlocks через Главное меню --
+//!          Settings -- Compiler -- (Global Compiler Settings) -- (Compiler Settings) -- Other Options.
 //!
-//! @note    Кодовая страница в редакторе среды разработки должна быть установлена как Windows CP1251, проверьте
-//!          это. В разных средах разработки она устанавливается по-разному, например, в CodeBlocks через
-//!          Главное меню -- Settings -- Editor -- (General Settings) -- Other Settings -- Encoding. Иначе
-//!          русские буквы в сообщениях TXLib будут отображаться неправильно.
+//! @note    Кодовая страница в редакторе среды разработки должна быть установлена как Windows CP1251, <b>проверьте
+//!          это.</b> В разных средах разработки она устанавливается по-разному, например, в CodeBlocks через
+//!          Главное меню -- Settings -- Editor -- (General Settings) -- Other Settings -- Encoding. В MS Visual Studio
+//!          Code надо нажать F1 и ввести Reopen with Encoding -- Cyrillic (Windows 1251). Иначе русские буквы в тексте
+//!          и сообщениях TXLib могут отображаться неправильно.
 //!
 //! @warning <b>Это альфа-версия. Для использования библиотеки требуется согласование с ее автором.</b> @n
 //!          <a href=http://www.ded32.ru/index/0-6>Правила использования материалов библиотеки и сайта</a> см. на
@@ -126,7 +125,7 @@
 //! @code
 //!            #define _TX_VERSION "TXLib [Ver: 1.73a, Rev: 164, Date: 2020-01-30 05:00:00 +0300]"  //
 //!            #define _TX_AUTHOR  "Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru)"             //  ПРИМЕР
-//!            #define _TX_VER      0x173a0000                                                      //
+//!            #define _TX_VER      0x173a0050                                                      //
 //! @endcode
 //!            Эти константы автоматически обновляются при изменении версии.
 //!
@@ -142,9 +141,9 @@
 //}----------------------------------------------------------------------------------------------------------------
 //! @{
 
-#define _TX_VER      _TX_v_FROM_CVS ($VersionInfo: , TXLib.h, 00173a, 173, 2023-11-13 01:54:42 +0400, "Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>", $)
-#define _TX_VERSION  _TX_V_FROM_CVS ($VersionInfo: , TXLib.h, 00173a, 173, 2023-11-13 01:54:42 +0400, "Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>", $)
-#define _TX_AUTHOR   _TX_A_FROM_CVS ($VersionInfo: , TXLib.h, 00173a, 173, 2023-11-13 01:54:42 +0400, "Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>", $)
+#define _TX_VER      _TX_v_FROM_CVS ($VersionInfo: , TXLib.h, 00173a, 175, 2025-12-31 23:02:50 +0400, "Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>", $)
+#define _TX_VERSION  _TX_V_FROM_CVS ($VersionInfo: , TXLib.h, 00173a, 175, 2025-12-31 23:02:50 +0400, "Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>", $)
+#define _TX_AUTHOR   _TX_A_FROM_CVS ($VersionInfo: , TXLib.h, 00173a, 175, 2025-12-31 23:02:50 +0400, "Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>", $)
 
 //! @cond INTERNAL
 #define _TX_v_FROM_CVS(_1,file,ver,rev,date,auth,_2)  ((0x##ver##u << 16) | 0x##rev##u)
@@ -172,36 +171,36 @@
 //! @hideinitializer
 //}----------------------------------------------------------------------------------------------------------------
 
+#define __TX_COMPILER__       "Unknown C++, std="   TX_QUOTE (__cplusplus)
+
 #if    defined (__GNUC__)
 
     #define _GCC_VER          ( __GNUC__*100 + __GNUC_MINOR__*10 + __GNUC_PATCHLEVEL__ )
 
+    #undef  __TX_COMPILER__
     #define __TX_COMPILER__   "GNU g++ "            TX_QUOTE (__GNUC__)       "."  \
                                                     TX_QUOTE (__GNUC_MINOR__) "."  \
                                                     TX_QUOTE (__GNUC_PATCHLEVEL__) \
                               ", std="              TX_QUOTE (__cplusplus)
+#elif  defined (_MSC_VER)
 
-#elif  defined (__clang__) || defined (__clang_major__)
+    #undef  __TX_COMPILER__
+    #define __TX_COMPILER__   "MSVS "               TX_QUOTE (_MSC_VER)            \
+                              ", std="              TX_QUOTE (__cplusplus)
+#endif
+
+#if    defined (__clang__) || defined (__clang_major__)
 
     #define _CLANG_VER        ( __clang_major__*100 + __clang_minor__*10 + __clang_patchlevel__ )
 
+    #undef  __TX_COMPILER__
     #define __TX_COMPILER__   "Clang "              TX_QUOTE (__clang_major__) "."  \
                                                     TX_QUOTE (__clang_minor__) "."  \
                                                     TX_QUOTE (__clang_patchlevel__) \
                               ", std="              TX_QUOTE (__cplusplus)
-#elif  defined (_MSC_VER)
+#endif
 
-    #define __TX_COMPILER__   "MSVS "               TX_QUOTE (_MSC_VER)            \
-                              ", std="              TX_QUOTE (__cplusplus)
-
-#elif  defined (__INTEL_COMPILER)
-
-    #define __TX_COMPILER__   "Intel C++ "          TX_QUOTE (__INTEL_COMPILER)    \
-                              ", std="              TX_QUOTE (__cplusplus)
-#else
-
-    #define __TX_COMPILER__   "Unknown C++, std="   TX_QUOTE (__cplusplus)
-    #endif
+//-----------------------------------------------------------------------------------------------------------------
 
 //! @cond INTERNAL
 
@@ -266,12 +265,6 @@
 #elif defined (__FUNCTION__)
     #define __TX_FUNCTION__   __FUNCTION__
 
-#elif defined (__INTEL_COMPILER) && (__INTEL_COMPILER >= 600)
-    #define __TX_FUNCTION__   __FUNCTION__
-
-#elif defined (__BORLANDC__) && (__BORLANDC__ >= 0x550)
-    #define __TX_FUNCTION__   __FUNC__
-
 #elif defined (__cplusplus) && (__cplusplus >= 199711L)
     #define __TX_FUNCTION__   __func__
 
@@ -288,7 +281,6 @@
 
 #if !defined (__func__) && defined (__FUNCTION__)
     #define   __func__        __FUNCTION__
-
 #endif
 
 //}
@@ -300,20 +292,39 @@
 //-----------------------------------------------------------------------------------------------------------------
 //! @{ @cond INTERNAL
 
-#if !defined (__cplusplus)
+#if (defined (_GCC_VER)   && (_GCC_VER   <  472) && !defined (_CLANG_VER) || \
+     defined (_CLANG_VER) && (_CLANG_VER <  900)                          || \
+     defined (_MSC_VER)   && (_MSC_VER   < 1600))  // Minimum requirements are now GCC 4.7.2 or MSVC 10.0 (2010)
 
     #ifdef __GNUC__
     #error
     #error ---------------------------------------------------------------------------------------
     #endif
-    #error TXLib.h: Must use C++ to compile TXLib.h. Now you are using C only.
+    #error TXLib.h: This version works only with GCC >= 4.7.2 or MS Visual Studio >= 2010, sorry.
     #error
-    #error CHECK source file EXTENSION. Maybe it is ".C". It must be ".CPP".
-    #error If your file is named, for example, "Untitled.C", go to menu [File],
-    #error then [Save As] and rename it to "Untitled.CPP". Please do NOT use spaces.
+    #error Please use TXLib.h previous stable version/revision OR upgrade/install proper compiler.
     #error ---------------------------------------------------------------------------------------
     #error
 
+#endif
+
+//-----------------------------------------------------------------------------------------------------------------
+
+#if defined (_GCC_VER) && (_GCC_VER >= 492)
+#if defined (TX_USE_SPEAK) && !__has_include (<SAPI.h>)
+
+    #ifdef __GNUC__
+    #error
+    #error ---------------------------------------------------------------------------------------
+    #endif
+    #error You have defined TX_USE_SPEAK, but your compiler do NOT have the library <SAPI.h>.
+    #error
+    #error Please use compiler library set with SAPI.h included. SAPI is Microsoft Speech API
+    #error necessary for txSpeak() to work.
+    #error ---------------------------------------------------------------------------------------
+    #error
+
+#endif
 #endif
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -327,6 +338,47 @@
     #error TXLib.h: Windows (MSVC/Win32 or GCC/MinGW or Cygwin) is the only supported OS, sorry.
     #error
     #error In Linux or MacOS, you should write your own TXLib and share it with your friends, or use wine.
+    #error ---------------------------------------------------------------------------------------
+    #error
+
+#endif
+
+//-----------------------------------------------------------------------------------------------------------------
+
+#if  defined (__STRICT_ANSI__) && (_GCC_VER < 1120)  // Try to extend strict ANSI rules
+
+    #undef  __STRICT_ANSI__
+    #define __STRICT_ANSI__UNDEFINED
+
+    #if defined (_STRING_H_) || defined (_INC_STRING) || defined (_STDIO_H_) || defined (_INC_STDIO)
+
+    #ifdef __GNUC__
+    #error
+    #error ---------------------------------------------------------------------------------------
+    #endif
+    #error TXLib.h: Should include "TXLib.h" BEFORE <string.h>, <iostream> or <stdio.h> in Strict ANSI mode.
+    #error
+    #error REARRANGE your #include directives, or DISABLE ANSI-compliancy by #undef __STRICT_ANSI__.
+    #error ---------------------------------------------------------------------------------------
+    #error
+
+    #endif
+
+#endif
+
+//-----------------------------------------------------------------------------------------------------------------
+
+#if !defined (__cplusplus)
+
+    #ifdef __GNUC__
+    #error
+    #error ---------------------------------------------------------------------------------------
+    #endif
+    #error TXLib.h: Must use C++ to compile TXLib.h. Now you are using C only.
+    #error
+    #error CHECK source file EXTENSION. Maybe it is ".C". It must be ".CPP".
+    #error If your file is named, for example, "Untitled.C", go to menu [File],
+    #error then [Save As] and rename it to "Untitled.CPP". Please do NOT use spaces.
     #error ---------------------------------------------------------------------------------------
     #error
 
@@ -361,32 +413,11 @@
 
 //-----------------------------------------------------------------------------------------------------------------
 
-#if  defined (__STRICT_ANSI__) && (_GCC_VER < 1120)  // Try to extend strict ANSI rules
-
-    #undef  __STRICT_ANSI__
-    #define __STRICT_ANSI__UNDEFINED
-
-    #if defined (_STRING_H_) || defined (_INC_STRING) || defined (_STDIO_H_) || defined (_INC_STDIO)
-
-    #ifdef __GNUC__
-    #error
-    #error ---------------------------------------------------------------------------------------
-    #endif
-    #error TXLib.h: Should include "TXLib.h" BEFORE <string.h> or <stdio.h> in Strict ANSI mode.
-    #error
-    #error REARRANGE your #include directives, or DISABLE ANSI-compliancy by #undef __STRICT_ANSI__.
-    #error ---------------------------------------------------------------------------------------
-    #error
-
-    #endif
-
-#endif
-
-//-----------------------------------------------------------------------------------------------------------------
-
 #if  defined (__GNUC__)
 
     #pragma GCC diagnostic ignored     "-Wpragmas"
+    #pragma GCC diagnostic ignored     "-Wunknown-pragmas"
+    #pragma GCC diagnostic ignored     "-Wunknown-warning-option"
 
     #pragma GCC diagnostic warning     "-Wall"
     #pragma GCC diagnostic warning     "-Weffc++"
@@ -459,25 +490,35 @@
     #pragma GCC diagnostic ignored     "-Wunused-function"
     #pragma GCC diagnostic ignored     "-Wvariadic-macros"
 
+    #pragma GCC diagnostic warning     "-Wunknown-warning-option"
+    #pragma GCC diagnostic warning     "-Wunknown-pragmas"
     #pragma GCC diagnostic warning     "-Wpragmas"
 
     //{ These warning settings for TXLib.h only and will be re-enabled at end of file:
 
+    #ifndef _CLANG_VER
     #pragma GCC push_options
+    #endif
+
     #pragma GCC diagnostic push
 
     #pragma GCC diagnostic ignored     "-Wpragmas"
+    #pragma GCC diagnostic ignored     "-Wunknown-pragmas"
+    #pragma GCC diagnostic ignored     "-Wunknown-warning-option"
 
-    #pragma GCC diagnostic ignored     "-Wpedantic"
     #pragma GCC diagnostic ignored     "-Waddress"
     #pragma GCC diagnostic ignored     "-Warray-bounds"
     #pragma GCC diagnostic ignored     "-Wclobbered"
     #pragma GCC diagnostic ignored     "-Wdeprecated-declarations"
     #pragma GCC diagnostic ignored     "-Wfloat-equal"
     #pragma GCC diagnostic ignored     "-Wformat-nonliteral"
+    #pragma GCC diagnostic ignored     "-Wformat-zero-length"
+    #pragma GCC diagnostic ignored     "-Winvalid-source-encoding"
     #pragma GCC diagnostic ignored     "-Wlarger-than="
     #pragma GCC diagnostic ignored     "-Wmisleading-indentation"
     #pragma GCC diagnostic ignored     "-Wnon-virtual-dtor"
+    #pragma GCC diagnostic ignored     "-Wpacked-not-aligned"
+    #pragma GCC diagnostic ignored     "-Wpedantic"
     #pragma GCC diagnostic ignored     "-Wredundant-decls"
     #pragma GCC diagnostic ignored     "-Wshadow"
     #pragma GCC diagnostic ignored     "-Wsign-conversion"
@@ -485,20 +526,21 @@
     #pragma GCC diagnostic ignored     "-Wsuggest-override"
     #pragma GCC diagnostic ignored     "-Wunused-label"    // Just for fun in _txCanvas_OnCmdAbout()
     #pragma GCC diagnostic ignored     "-Wunused-value"
-    #pragma GCC diagnostic ignored     "-Wformat-zero-length"
-    #pragma GCC diagnostic ignored     "-Wpacked-not-aligned"
+
     #pragma GCC optimize               "no-strict-aliasing"
 
+    #pragma GCC diagnostic warning     "-Wunknown-warning-option"
+    #pragma GCC diagnostic warning     "-Wunknown-pragmas"
     #pragma GCC diagnostic warning     "-Wpragmas"
 
     #if defined (__CYGWIN__) && !defined (_TX_TESTING)
-    #pragma GCC system_header                    // This is not a fair play, but this is the only way to deal with Cygwin :(
+    #pragma GCC system_header          // This is not a fair play, but this is the only way to deal with Cygwin :(
     #endif
 
     //}
 
     #define _tx_thread                 __thread
-    #define _tx_decltype(value)        __decltype (value)
+    #define _tx_decltype( value )      __decltype (value)
 
     #define     _FORTIFY_SOURCE        2
 
@@ -515,23 +557,20 @@
         #define _GLIBCXX_DEBUG_PEDANTIC          // *before* including TXLib.h.
     #endif
 
-    #if defined (_WIN64)                         // removed in x86 because printf ("%g", double) failure, this prints 0 always
-    #ifndef     __USE_MINGW_ANSI_STDIO
-        #define __USE_MINGW_ANSI_STDIO 1
-    #endif
+    #if defined (_WIN64) && !defined (__USE_MINGW_ANSI_STDIO)
+        #define __USE_MINGW_ANSI_STDIO 1         // Removed in x86 because printf ("%g", double) failure, this always prints 0
     #endif
 
     template <typename T>
-    inline T _txNOP (T value)          { return value; }   // To suppress performance warnings in assert etc.
+    inline T _txNOP (T value) { return value; }  // To suppress performance warnings in assert etc.
+
+    #ifndef _CLANG_VER
 
     // From MinGW\include\float.h which is replaced by MinGW\lib\gcc\i686-pc-mingw32\x.x.x\include\float.h
     extern "C" __declspec (dllimport)  unsigned __cdecl _controlfp (unsigned control, unsigned mask);
     extern "C"                         void     __cdecl _fpreset   ();
 
-#else
-
-    #define     __attribute__( attr )
-    #define     _txNOP( value )        ( value )
+    #endif
 
 #endif
 
@@ -539,65 +578,20 @@
 
 #if  defined (__clang__) || defined (__clang_major__)
 
-    #pragma clang diagnostic ignored   "-Wunknown-pragmas"
-
-    #pragma clang diagnostic warning   "-Wall"
-    #pragma clang diagnostic warning   "-Weffc++"
-    #pragma clang diagnostic warning   "-Wextra"
-
-    #pragma clang diagnostic warning   "-Wcast-qual"
-    #pragma clang diagnostic warning   "-Wchar-subscripts"
-    #pragma clang diagnostic warning   "-Wconversion"
-    #pragma clang diagnostic warning   "-Wctor-dtor-privacy"
-    #pragma clang diagnostic warning   "-Wempty-body"
-    #pragma clang diagnostic warning   "-Wfloat-equal"
-    #pragma clang diagnostic warning   "-Wformat"
-    #pragma clang diagnostic warning   "-Wformat-nonliteral"
-    #pragma clang diagnostic warning   "-Wformat-security"
-    #pragma clang diagnostic warning   "-Wmissing-declarations"
-    #pragma clang diagnostic warning   "-Wnon-virtual-dtor"
-    #pragma clang diagnostic warning   "-Woverloaded-virtual"
-    #pragma clang diagnostic warning   "-Wpacked"
-    #pragma clang diagnostic warning   "-Wpointer-arith"
-    #pragma clang diagnostic warning   "-Wredundant-decls"
-    #pragma clang diagnostic warning   "-Wshadow"
-    #pragma clang diagnostic warning   "-Wsign-promo"
-    #pragma clang diagnostic warning   "-Wstrict-aliasing"
-    #pragma clang diagnostic warning   "-Wstrict-overflow"
-    #pragma clang diagnostic warning   "-Wswitch-default"
-    #pragma clang diagnostic warning   "-Wswitch-enum"
-    #pragma clang diagnostic warning   "-Wunused"
-
-    #pragma clang diagnostic ignored   "-Winvalid-source-encoding"
-    #pragma clang diagnostic ignored   "-Wunused-const-variable"
-    #pragma clang diagnostic ignored   "-Wunused-variable"
-
-    #pragma clang diagnostic warning   "-Wunknown-pragmas"
-
     //{ These warning settings for TXLib.h only and will be re-enabled at end of file:
 
     #pragma clang diagnostic push
 
-    #pragma clang diagnostic ignored   "-Wunknown-pragmas"
-
-    #pragma clang diagnostic ignored   "-Wpedantic"
     #pragma clang diagnostic ignored   "-Wcast-align"
     #pragma clang diagnostic ignored   "-Wfloat-conversion"
     #pragma clang diagnostic ignored   "-Wmicrosoft-cast"
-    #pragma clang diagnostic ignored   "-Wmisleading-indentation"
     #pragma clang diagnostic ignored   "-Wmissing-braces"
-    #pragma clang diagnostic ignored   "-Wmissing-field-initializers"
-    #pragma clang diagnostic ignored   "-Wnon-virtual-dtor"
     #pragma clang diagnostic ignored   "-Wsign-compare"
-    #pragma clang diagnostic ignored   "-Wsign-conversion"
     #pragma clang diagnostic ignored   "-Wstring-plus-int"
     #pragma clang diagnostic ignored   "-Wundef"
     #pragma clang diagnostic ignored   "-Wundefined-bool-conversion"
     #pragma clang diagnostic ignored   "-Wunused-function"
-    #pragma clang diagnostic ignored   "-Wunused-value"
     #pragma clang diagnostic ignored   "-Wvariadic-macros"
-
-    #pragma clang diagnostic warning   "-Wunknown-pragmas"
 
     //{ CLang-Tidy options
     //
@@ -722,6 +716,9 @@
         #pragma strict_gs_check (push, on)       // Detects stack buffer overruns
     #endif
 
+    #define     __attribute__( attr )
+    #define     _txNOP( value ) ( value )
+
     #endif
 
     #define _CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES  1
@@ -730,57 +727,8 @@
 
 //-----------------------------------------------------------------------------------------------------------------
 
-#if  defined (__INTEL_COMPILER)
-
-    #pragma warning (disable:    174)            // Remark: expression has no effect
-    #pragma warning (disable:    304)            // Remark: access control not specified ("public" by default)
-    #pragma warning (disable:    444)            // Remark: destructor for base class "..." is not virtual
-    #pragma warning (disable:    522)            // Remark: function "..." redeclared "inline" after being called
-    #pragma warning (disable:    981)            // Remark: operands are evaluated in unspecified order
-    #pragma warning (disable:   1684)            // Conversion from pointer to same-sized integral type (potential portability problem)
-
-#endif
-
-//-----------------------------------------------------------------------------------------------------------------
-
-#if (defined (_GCC_VER) && (_GCC_VER <  472)  || \
-     defined (_MSC_VER) && (_MSC_VER < 1600)) // Minimum requirements are now GCC 4.7.2 or MSVC 10.0 (2010)
-
-    #ifdef __GNUC__
-    #error
-    #error ---------------------------------------------------------------------------------------
-    #endif
-    #error TXLib.h: This version will NOT work with GCC < 4.7.2 or MS Visual Studio < 2010, sorry.
-    #error
-    #error Please use TXLib.h previous stable version/revision OR upgrade your compiler.
-    #error ---------------------------------------------------------------------------------------
-    #error
-
-#endif
-
-//-----------------------------------------------------------------------------------------------------------------
-
-#if defined (_GCC_VER) && (_GCC_VER >= 492)
-#if defined (TX_USE_SPEAK) && !__has_include (<SAPI.h>)
-
-    #ifdef __GNUC__
-    #error
-    #error ---------------------------------------------------------------------------------------
-    #endif
-    #error You have defined TX_USE_SPEAK, but your compiler do NOT have the library <SAPI.h>.
-    #error
-    #error Please use compiler library set with SAPI.h included. SAPI is Microsoft Speech API
-    #error nesessary for txSpeak() to work.
-    #error ---------------------------------------------------------------------------------------
-    #error
-
-#endif
-#endif
-
-//-----------------------------------------------------------------------------------------------------------------
-
 #if !defined (WINVER)
-    #define   WINVER                   0x0500    // Defaults to Windows 2000
+    #define   WINVER                   0x0502    // Defaults to Windows XP
     #define   WINDOWS_ENABLE_CPLUSPLUS           // Allow use of type-limit macros in <basetsd.h>,
 #endif                                           //   they are allowed by default if WINVER >= 0x0600.
 
@@ -810,7 +758,9 @@
 #if defined (_DEBUG)
 #define _SECURE_SCL                    1         // Enable checked STL iterators to throw an exception on incorrect use
 #define _HAS_ITERATOR_DEBUGGING        1
-#define _LIBCPP_DEBUG                  1
+#define _LIBCPP_DEBUG                  2
+#define _LIBCPP_HARDENING_MODE         _LIBCPP_HARDENING_MODE_DEBUG
+#define _LIBCPP_AVAILABILITY_CUSTOM_VERBOSE_ABORT_PROVIDED
 #endif
 
 #if defined (_MSC_VER) && defined (_DEBUG)
@@ -852,7 +802,14 @@
 
 #endif
 
-namespace std { enum nomeow_t { nomeow }; }      // Vital addition to the C++ standard. TODO: Should contact C++ std committee.
+namespace std
+    {
+    enum nomeow_t { nomeow };                    // Vital addition to the C++ standard. TODO: Should contact C++ std committee.
+
+    #if defined (_CLANG_VER) && (_CLANG_VER < 2000)
+    void __libcpp_verbose_abort (char const* format, ...);
+    #endif
+    }
 
 //-----------------------------------------------------------------------------------------------------------------
 
@@ -875,6 +832,7 @@ namespace std { enum nomeow_t { nomeow }; }      // Vital addition to the C++ st
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include <time.h>
 #include <math.h>
@@ -931,8 +889,8 @@ namespace std { enum nomeow_t { nomeow }; }      // Vital addition to the C++ st
 
 #if !( defined (_MSC_VER) || defined (__STDC_LIB_EXT1__) )
 
-    #define  getenv_s( sz, buf, sizeof_buf, name )       ( (void)(sz), strncpy ((buf), getenv (name), (sizeof_buf)-1) )
-
+    #define  getenv_s( sz, buf, sizeof_buf, name )       ({ (void)(sz); const char* _env = getenv (name); \
+                                                            strncpy ((buf), (_env)? _env : "", (sizeof_buf)-1); })
 #endif
 
 #if defined (__CYGWIN__)
@@ -1057,7 +1015,7 @@ _TX_BEGIN_NAMESPACE
 //!          Если такой программе нужно одно окно, то в проект следует включить файл, ответственный за рисование,
 //!          скажем, @c graphics.cpp, и выводить графику только через функции этого файла. Такой файл (или
 //!          библиотеку) в больших проектах часто называют графическим движком. @nn
-//!          Это влияет не только на фунции рисования, но и на такие функции, как @ref txMouseX(), @ref txMouseY(),
+//!          Это влияет не только на функции рисования, но и на такие функции, как @ref txMouseX(), @ref txMouseY(),
 //!          @ref txMousePos() и другие, прямо или косвенно зависящие от создания окна рисования. @nn
 //!          То же касается и использования TXLib в @b DLL.
 //!
@@ -1380,7 +1338,7 @@ const char* txGetModuleFileName (bool fileNameOnly = true) tx_nodiscard;
 //!
 //! @note    При отображении окна @c txMessageBox программу можно завершить, нажав клавиши клавиатуры @c Shift,
 //!          @c Control и @c Alt одновременно с нажатием мышкой на кнопку окна @c [Отмена] или @c [Cancel]. Это
-//!          полезно, если окно @c txMessageBox постоянно отображается в цикле и программу нельтзя завершить
+//!          полезно, если окно @c txMessageBox постоянно отображается в цикле и программу нельзя завершить
 //!          нажатием на кнопку закрытия основного окна.
 //!
 //! @see     TX_ERROR(), TX_DEBUG_ERROR(), txOutputDebugPrintf(), txNotifyIcon(), txSpeak(), txStackBackTrace()
@@ -1391,7 +1349,7 @@ const char* txGetModuleFileName (bool fileNameOnly = true) tx_nodiscard;
 //!              MessageBox (txWindow(), "Хватит и обычного MessageBox()", "Win32 сообщает", 0);
 //!              }
 //!          else
-//!              txMessageBox ("Спасаем от кракозябл вместо русских букв, без регистрации и СМС.");
+//!              txMessageBox ("Спасаем от кракозябр вместо русских букв, без регистрации и СМС.");
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
@@ -1481,14 +1439,15 @@ const COLORREF
     TX_WHITE         = RGB (255, 255, 255),   //!< Белый цвет.
     TX_TRANSPARENT   = 0xFFFFFFFF,            //!< Прозрачный цвет. <i>Отключает рисование.</i>  //-V112
     TX_NULL          = TX_TRANSPARENT,        //!< Прозрачный цвет. <i>Отключает рисование.</i>
-    TX_BLM           = TX_BLACK,              //!< Альтернативный политкорректный трендовый цвет!
-    TX_white         = TX_WHITE,              //!< BLM-compatible name for this color.
 
-//  Цветовые каналы (компоненты) -- см. txExtractColor(), txRGB2HSL(), txHSL2RGB()
+//  Цветовые каналы (компоненты) -- см. txExtractColor(), txRGB2HSL(), txHSL2RGB(), txRGB2Lab(), txLab2RGB()
 
     TX_HUE          = 0x04000000,             //!< Цветовой тон цвета в модели HSL, @b [0; 255]
     TX_SATURATION   = 0x05000000,             //!< Насыщенность цвета в модели HSL, @b [0; 255]
-    TX_LIGHTNESS    = 0x06000000;             //!< Светлота     цвета в модели HSL, @b [0; 255]
+    TX_LIGHTNESS    = 0x06000000,             //!< Светлота     цвета в модели HSL, @b [0; 255]
+    TX_LAB_L        = 0x07000000,             //!< L-компонента цвета в модели Lab, @b [0; 255]
+    TX_LAB_A        = 0x08000000,             //!< a-компонента цвета в модели Lab, @b [0; 255]
+    TX_LAB_B        = 0x09000000;             //!< b-компонента цвета в модели Lab, @b [0; 255]
 
 #ifdef FOR_DOXYGEN_ONLY
     };
@@ -1511,7 +1470,7 @@ const COLORREF
 //! @return  Созданный цвет в формате COLORREF.
 //!
 //! @see     txSetColor(), txGetColor(), txSetFillColor(), txGetFillColor(), txColors, RGB(), txExtractColor(),
-//!          txRGB2HSL(), txHSL2RGB()
+//!          txRGB2HSL(), txHSL2RGB(), txRGB2Lab(), txLab2RGB(), txDeltaE(), txDeltaE94()
 //!
 //! @usage @code
 //!          txSetColor (RGB (255, 128, 0));                // Красный + половина зеленого = оранжевый
@@ -1663,7 +1622,7 @@ COLORREF txGetFillColor (HDC dc = txDC()) tx_nodiscard;
 //! @return  Цветовая компонента, см. txColors.
 //!
 //! @see     txSetColor(), txGetColor(), txSetFillColor(), txGetFillColor(), txColors, RGB(), txExtractColor(),
-//!          txRGB2HSL(), txHSL2RGB()
+//!          txRGB2HSL(), txHSL2RGB(), txRGB2Lab(), txLab2RGB(), txDeltaE(), txDeltaE94()
 //!
 //! @usage @code
 //!          int red       = txExtractColor (color, TX_RED);
@@ -1681,15 +1640,15 @@ unsigned txExtractColor (COLORREF color, COLORREF component) tx_nodiscard;
 //!
 //! @param   rgbColor  Преобразуемый цвет в формате @strike ЕГЭ @endstrike RGB.
 //!
-//! @return  Созданный цвет в виде COLORREF.
+//! @return  Созданный цвет в модели HSL в виде COLORREF.
 //!
-//!          Формат @b RGB определяется как
+//!          Модель @b RGB определяется как
 //!
 //!          - Красная компонента цвета (Red),   от 0 до 255.
 //!          - Зеленая компонента цвета (Green), от 0 до 255.
 //!          - Синяя   компонента цвета (Blue),  от 0 до 255.
 //!
-//!          Формат @b HSL определяется как
+//!          Модель @b HSL определяется как
 //!
 //!          - Цветовой тон (Hue),        от 0 до @b 255 (@b не до 360).
 //!          - Насыщенность (Saturation), от 0 до @b 255 (@b не до 100).
@@ -1698,7 +1657,7 @@ unsigned txExtractColor (COLORREF color, COLORREF component) tx_nodiscard;
 //! @note    Точность преобразования не идеальна. При преобразовании RGB->HSL->RGB может набежать погрешность до 5.
 //!
 //! @see     txSetColor(), txGetColor(), txSetFillColor(), txGetFillColor(), txColors, RGB(), txExtractColor(),
-//!          txRGB2HSL(), txHSL2RGB()
+//!          txRGB2HSL(), txHSL2RGB(), txRGB2Lab(), txLab2RGB(), txDeltaE(), txDeltaE94()
 //!
 //! @usage @code
 //!          COLORREF hslColor = txRGB2HSL (TX_RED);
@@ -1713,15 +1672,15 @@ COLORREF txRGB2HSL (COLORREF rgbColor) tx_nodiscard;
 //!
 //! @param   hslColor  Преобразуемый цвет в формате HSL.
 //!
-//! @return  Созданный цвет в виде COLORREF.
+//! @return  Созданный цвет в модели RGB в виде COLORREF.
 //!
-//!          Формат @b RGB определяется как
+//!          Модель @b RGB определяется как
 //!
 //!          - Красная компонента цвета (Red),   от 0 до 255.
 //!          - Зеленая компонента цвета (Green), от 0 до 255.
 //!          - Синяя   компонента цвета (Blue),  от 0 до 255.
 //!
-//!          Формат @b HSL определяется как
+//!          Модель @b HSL определяется как
 //!
 //!          - Цветовой тон (Hue),        от 0 до @b 255 (@b не до 360).
 //!          - Насыщенность (Saturation), от 0 до @b 255 (@b не до 100).
@@ -1730,16 +1689,183 @@ COLORREF txRGB2HSL (COLORREF rgbColor) tx_nodiscard;
 //! @note    Точность преобразования не идеальна. При преобразовании RGB->HSL->RGB может набежать погрешность до 5.
 //!
 //! @see     txSetColor(), txGetColor(), txSetFillColor(), txGetFillColor(), txColors, RGB(), txExtractColor(),
-//!          txRGB2HSL(), txHSL2RGB()
+//!          txRGB2HSL(), txHSL2RGB(), txRGB2Lab(), txLab2RGB(), txDeltaE(), txDeltaE94()
 //!
 //! @usage @code
-//!          int hue = 10, saturation = 128, lightness = 128;
-//!          COLORREF hslColor = RGB (hue, saturation, lightness);
+//!          int hue = 10, saturation = 50, lightness = 50;
+//!
+//!          COLORREF hslColor = RGB (ROUND (hue        / 360.0 * 255.0),
+//!                                   ROUND (saturation / 360.0 * 255.0),
+//!                                   ROUND (lightness  / 360.0 * 255.0));
+//!
 //!          txSetColor (txHSL2RGB (hslColor));
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
 COLORREF txHSL2RGB (COLORREF hslColor) tx_nodiscard;
+
+//{----------------------------------------------------------------------------------------------------------------
+//! @ingroup Drawing
+//! @brief   Преобразует цвет из формата RGB в формат CIE Lab.
+//!
+//! @param   rgbColor  Преобразуемый цвет в формате RGB (sRGB).
+//!
+//! @return  Созданный цвет в модели Lab в виде COLORREF. Условия преобразования: D65/2.
+//!
+//!          Модель @b RGB определяется как
+//!
+//!          - Красная компонента цвета (Red),   от 0 до 255.
+//!          - Зеленая компонента цвета (Green), от 0 до 255.
+//!          - Синяя   компонента цвета (Blue),  от 0 до 255.
+//!
+//!          Модель @b Lab определяется как
+//!
+//!          - Параметр @c L, светлота (Lightness), от 0 до @b 255 (@b не до 100).
+//!          - Параметр @c а (красный-зеленый),     от 0 до @b 255 (@b не от -100 до +100).
+//!          - Параметр @c b (желтый-синий),        от 0 до @b 255 (@b не от -100 до +100).
+//!
+//! @note    Точность преобразования не идеальна. При преобразовании RGB->Lab->RGB может набежать погрешность до 5.
+//!
+//! @see     txSetColor(), txGetColor(), txSetFillColor(), txGetFillColor(), txColors, RGB(), txExtractColor(),
+//!          txRGB2HSL(), txHSL2RGB(), txRGB2Lab(), txLab2RGB(), txDeltaE(), txDeltaE94()
+//!
+//! @usage @code
+//!          COLORREF labColor = txRGB2Lab (TX_LIGHTRED);
+//!
+//!          double L = txExtractColor (color, TX_LAB_L) / 255.0 * 100,
+//!                 a = txExtractColor (color, TX_LAB_A) / 255.0 * 200 - 100.0,
+//!                 b = txExtractColor (color, TX_LAB_B) / 255.0 * 200 - 100.0;
+//! @endcode
+//}----------------------------------------------------------------------------------------------------------------
+
+COLORREF txRGB2Lab (COLORREF rgbColor) tx_nodiscard;
+
+//{----------------------------------------------------------------------------------------------------------------
+//! @ingroup Drawing
+//! @brief   Преобразует цвет из формата CIE Lab в формат RGB.
+//!
+//! @param   labColor  Преобразуемый цвет в формате CIE Lab.
+//!
+//! @return  Созданный цвет в модели RGB (sRGB) в виде COLORREF. Условия преобразования: D65/2.
+//!
+//!          Модель @b RGB определяется как
+//!
+//!          - Красная компонента цвета (Red),   от 0 до 255.
+//!          - Зеленая компонента цвета (Green), от 0 до 255.
+//!          - Синяя   компонента цвета (Blue),  от 0 до 255.
+//!
+//!          Модель @b Lab определяется как
+//!
+//!          - Параметр @c L, светлота (Lightness), от 0 до @b 255 (@b не до 100).
+//!          - Параметр @c а (красный-зеленый),     от 0 до @b 255 (@b не от -100 до +100).
+//!          - Параметр @c b (желтый-синий),        от 0 до @b 255 (@b не от -100 до +100).
+//!
+//! @note    Точность преобразования не идеальна. При преобразовании RGB->HSL->RGB может набежать погрешность до 5.
+//!
+//! @see     txSetColor(), txGetColor(), txSetFillColor(), txGetFillColor(), txColors, RGB(), txExtractColor(),
+//!          txRGB2HSL(), txHSL2RGB(), txRGB2Lab(), txLab2RGB(), txDeltaE(), txDeltaE94()
+//!
+//! @usage @code
+//!          int L = 10, a = 20, b = -30;
+//!
+//!          COLORREF labColor = RGB (ROUND ( L          / 100.0 * 255),
+//!                                   ROUND ((a + 100.0) / 200.0 * 255),
+//!                                   ROUND ((b + 100.0) / 200.0 * 255));
+//!
+//!          txSetColor (txLab2RGB (labColor));
+//! @endcode
+//}----------------------------------------------------------------------------------------------------------------
+
+COLORREF txLab2RGB (COLORREF labColor) tx_nodiscard;
+
+//{----------------------------------------------------------------------------------------------------------------
+//! @ingroup Drawing
+//! @brief   Сравнивает цвета по модели CIE 1976.
+//!
+//! @param   rgbColor1  Первый цвет для сравнения в модели RGB
+//! @param   rgbColor2  Второй цвет для сравнения в модели RGB
+//!
+//! @return  Разница цветов в условных единицах. Различие, меньшее 2, обычно неразличимо человеком.
+//!
+//! @see     txSetColor(), txGetColor(), txSetFillColor(), txGetFillColor(), txColors, RGB(), txExtractColor(),
+//!          txRGB2HSL(), txHSL2RGB(), txRGB2Lab(), txLab2RGB(), txDeltaE94()
+//!
+//! @usage @code
+//!          #include "TXLib.h"
+//!
+//!          int main()
+//!              {
+//!              int refColor = TX_GRAY;
+//!
+//!              int size     = 30;
+//!              int spread   = 20;
+//!              double step  = 0.333;
+//!
+//!              txCreateWindow (size * (spread+1) * 2, size * (spread+1) * 2);
+//!              txSelectFont   ("Arial", 12);
+//!
+//!              txSetColor     (TX_BLACK);
+//!              txSetFillColor (refColor);
+//!              txRectangle    (0, 0, txGetExtentX(), txGetExtentY());
+//!
+//!              double L  = txExtractColor (txRGB2Lab (refColor), TX_LAB_L) - 2;
+//!              double a0 = txExtractColor (txRGB2Lab (refColor), TX_LAB_A) / 255.0 * 200 - 100.0;
+//!              double b0 = txExtractColor (txRGB2Lab (refColor), TX_LAB_B) / 255.0 * 200 - 100.0;
+//!
+//!              POINT org = { txGetExtentX()/2, txGetExtentY()/2 };
+//!
+//!              for (int iy = -spread; iy <= +spread; iy++)
+//!              for (int ix = -spread; ix <= +spread; ix++)
+//!                  {
+//!                  double a = a0 + ix * step,
+//!                         b = b0 + iy * step;
+//!
+//!                  COLORREF labColor = RGB (ROUND ( L          / 100.0 * 255),
+//!                                           ROUND ((a + 100.0) / 200.0 * 255),
+//!                                           ROUND ((b + 100.0) / 200.0 * 255));
+//!
+//!                  COLORREF rgbColor = txLab2RGB (labColor);
+//!
+//!                  double   deltaE   = txDeltaE94 (rgbColor, refColor);
+//!
+//!                  char str[20] = "";
+//!                  sprintf (str, "%ld", ROUND (deltaE));
+//!
+//!                  txSetFillColor (rgbColor);
+//!
+//!                  RECT r = { ROUND ((ix-0.5)*size + org.x),     ROUND ((-iy-0.5)*size + org.y),
+//!                             ROUND ((ix+0.5)*size + org.x + 1), ROUND ((-iy+0.5)*size + org.y + 1) };
+//!
+//!                  txSetColor     (TX_NULL);  txRectangle (r.left, r.top, r.right, r.bottom);
+//!                  txSetFillColor (refColor); txCircle    ((r.left + r.right) / 2, (r.top + r.bottom) / 2, size/3);
+//!                  txSetColor     (TX_BLACK); txDrawText  (r.left-3, r.top, r.right, r.bottom, str);
+//!                  }
+//!
+//!              return 0;
+//!              }
+//! @endcode
+//}----------------------------------------------------------------------------------------------------------------
+
+double txDeltaE (COLORREF rgbColor1, COLORREF rgbColor2) tx_nodiscard;
+
+//{----------------------------------------------------------------------------------------------------------------
+//! @ingroup Drawing
+//! @brief   Сравнивает цвета по более точной модели CIE 1994.
+//!
+//! @param   rgbColor1  Первый цвет для сравнения в модели RGB
+//! @param   rgbColor2  Второй цвет для сравнения в модели RGB
+//!
+//! @return  Разница цветов в условных единицах. Различие, меньшее 2, обычно неразличимо человеком.
+//!
+//! @see     txSetColor(), txGetColor(), txSetFillColor(), txGetFillColor(), txColors, RGB(), txExtractColor(),
+//!          txRGB2HSL(), txHSL2RGB(), txRGB2Lab(), txLab2RGB(), txDeltaE94()
+//!
+//! @usage @code
+//!          См. пример к предыдущей функции, txDeltaE().
+//! @endcode
+//}----------------------------------------------------------------------------------------------------------------
+
+double txDeltaE94 (COLORREF rgbColor1, COLORREF rgbColor2) tx_nodiscard;
 
 //! @}
 //}
@@ -2551,8 +2677,8 @@ HDC txCreateCompatibleDC (double sizeX, double sizeY, HBITMAP bitmap = NULL, RGB
 //!          пикселя его смещение от начала массива нужно рассчитывать с помощью формулы <tt>x + (-y + sizeY) * sizeX</tt>,
 //!          где @c sizeX и @c sizeY -- размеры изображения. Иначе изображение будет перевернуто вверх ногами. @nn
 //!
-//! @note    Однако если @b перед включением @c TXLib.h в программу будет определен макрос <tt>#define _TX_DIB_FIX -1*</tt>
-//!          или <tt>#define _TX_DIB_FIX @b -</tt> то этого переворота не будет, ось Y будет направлена снизу вверх.
+//! @note    Однако если @b перед включением @c TXLib.h в программу будет определен макрос <tt>\#define _TX_DIB_FIX -1*</tt>
+//!          или <tt>\#define _TX_DIB_FIX @b -</tt> то этого переворота не будет, ось Y будет направлена снизу вверх.
 //!
 //! @warning Будьте осторожны, не выходите за границы массива, последствия будут непредсказуемыми. @nn
 //!
@@ -2719,7 +2845,7 @@ HDC txLoadImage (const char filename[], int sizeX = 0, int sizeY = 0,
 //! @note    Эту функцию нужно обязательно вызывать, если картинка, загруженная с помощью txLoadImage() или виртуальный
 //!          холст, созданный с помощью txTransparentBlt() или txCreateDIBSection(), больше не нужны. Иначе настанет
 //!          @strike полный треш @endstrike у Windows могут закончиться свободные дескрипторы HDC, и начнется общее
-//!          торможение всей работы Windows и проблемы с рисованием во всех программах. Может быть, поосле этого придется
+//!          торможение всей работы Windows и проблемы с рисованием во всех программах. Может быть, после этого придется
 //!          перезапускать компьютер.
 //!
 //! @see     txCreateWindow(), txCreateCompatibleDC(), txLoadImage(), txDeleteDC(), txSaveImage(), txGetExtent(),
@@ -2762,7 +2888,7 @@ bool txDeleteDC (HDC* dc);
 //! @param   ySource   <i>Y-координата верхнего левого угла копируемой области внутри изображения-источника.
 //!                       Необязательна. Если не указана, то 0.</i>
 //! @param   operation <i>Вид операции копирования. Список видов гуглите по запросу "BitBlt function MSDN".
-//!                       Необязательен. Если не указан, то @c SRCCOPY (обычное копирование изображения).</i>
+//!                       Необязателен. Если не указан, то @c SRCCOPY (обычное копирование изображения).</i>
 //!
 //! @return  Если операция была успешна -- true, иначе -- false.
 //!
@@ -2939,7 +3065,7 @@ inline bool txTransparentBlt (double xDest, double yDest, HDC sourceImage,
 //!          решить, что изображение полностью прозрачно и не выведет на экран ничего. @nn
 //!
 //!          Если изображение-источник создано с помощью txCreateDIBSection() или txLoadImage(), то txAlphaBlend()
-//!          может использовать как общую прозрачность, задачаемую параметром @p alpha, так и попиксельную прозрачность,
+//!          может использовать как общую прозрачность, задаваемую параметром @p alpha, так и попиксельную прозрачность,
 //!          задаваемую альфа-каналом.
 //!
 //!          Если изображение имеет 24-битовый RGB-формат файлов (TrueColor), то это подразумевает, что попиксельной
@@ -3828,7 +3954,11 @@ bool txPlaySound (const char filename[] = NULL, DWORD mode = SND_ASYNC);
 //!
 //! @warning Для работы этой функции TXLib требует наличия файла @c SAPI.h из стандартной библиотеки Windows. Не на всех
 //!          платформах он есть. Если этот файл не найден, то будет ошибка компиляции. @nn
-//!          Этот файл точно есть в Visual Studio или в этой сборке платформы MinGW: https://nuwen.net/mingw.html
+//!          Этот файл точно есть в этой сборке платформы MinGW: https://nuwen.net/mingw.html @nn
+//!
+//! @warning Если проект состоит из нескольких .cpp-файлов, все вызовы txSpeak надо делать из одного и того же файла.
+//!          Вызовы из других файлов не будут проговаривать текст. Добавьте в проект еще один файл, например, Speaking.cpp,
+//!          и поместите все вызовы txSpeak в этот файл.
 //!
 //! @note    Вы можете настраивать синтез речи, используя язык разметки @b SSML (Speech Synthesis Markup Language).
 //!          Признаком наличия разметки SSML является наличие открывающей угловой скобки @c < в начале сообщения (после
@@ -3903,7 +4033,7 @@ int txSpeak (const char* text, ...) tx_printfy (1);
 //!          Без этой опции txPlayVideo() делает паузу в программе, ожидая конца воспроизведения, и только
 //!          потом возвращается.
 //!          @nn
-//!          В случае асинхронного воспрооизведения возвращаемым значением функции txPlayVideo() будет не
+//!          В случае асинхронного воспроизведения возвращаемым значением функции txPlayVideo() будет не
 //!          время ее работы, а дескриптор окна видеопотока (HWND). С его помощью можно контролировать это
 //!          окно, его положение на экране, размеры, видимость и другие свойства. См. функции
 //!          <a href="https://www.google.com/search?q=MoveWindow+function+Win32+apps">MoveWindow</a>(),
@@ -3917,7 +4047,7 @@ int txSpeak (const char* text, ...) tx_printfy (1);
 //!          <tt>txPlayVideo (NULL).</tt>
 //!
 //! @warning Если в последнем параметре @c (wnd) указано @b не окно TXLib, а какое-либо другое, то координаты
-//!          видео @c x, @c y и его размеры @c width, @c height игнорируются. В этом слчае видеопоток будет
+//!          видео @c x, @c y и его размеры @c width, @c height игнорируются. В этом случае видеопоток будет
 //!          занимать всю клиентскую область окна, указанного параметром @c wnd. См. пример использования.
 //!
 //! @note    <b>Воспроизведение видео требует установки внешней программы @c VideoLAN @c (vlc.exe) версии 3.0 или
@@ -4135,7 +4265,7 @@ int txOutputDebugPrintf (const char format[], ...) tx_printfy (1);
 
 //{----------------------------------------------------------------------------------------------------------------
 //! @ingroup Misc
-//! @brief   Добрый дядюшка Принтф. Теперь шаболонный.
+//! @brief   Добрый дядюшка Принтф. Теперь шаблонный.
 //!
 //! @param   format  Строка для печати, все как в вашем любимом printf().
 //! @param   args    Значения для печати.
@@ -4638,6 +4768,25 @@ T min (const T& a, const T& b) { return (a < b)? a : b; }  //!< Функциональная в
 
 //{----------------------------------------------------------------------------------------------------------------
 //! @ingroup Misc
+//! @brief   Хеширует буфер по алгоритму DJB2 (GNU Hash)
+//!
+//! @param   buffer  Буфер для хеширования
+//! @param   size    Размер буфера
+//!
+//! @return  Значение хеша буфера по алгоритму <a href=https://en.wikipedia.org/wiki/Daniel_J._Bernstein>DJB2 (GNU Hash).</a>
+//!
+//! @usage @code
+//!          char str[1024] = "";
+//!          printf ("Enter string to hash: ");
+//!          fgets (str, sizeof (str), stdin);
+//!          printf ("DJB2 hash is: 0x%llX\n", txHash (str), strlen (str));
+//! @endcode
+//}----------------------------------------------------------------------------------------------------------------
+
+uint64_t txHash (const void* buffer, size_t size) tx_nodiscard;
+
+//{----------------------------------------------------------------------------------------------------------------
+//! @ingroup Misc
 //! @brief   Переинициализирует математический сопроцессор
 //!
 //! Сбрасывает состояние математического сопроцессора, вызывая _fpreset() и разрешая генерацию исключений сопроцессора
@@ -5117,7 +5266,7 @@ void _txDump (const void* address, const char name[] = "_txDump()", bool pause =
 //! @ingroup Misc
 //! @brief   Распечатывает текущий стек вызовов функций в консоли.
 //!
-//! @warning Для корректной работы этой функкции требуются модули, которые нужно установить (скопировать)
+//! @warning Для корректной работы этой функции требуются модули, которые нужно установить (скопировать)
 //!          в папку Windows. См. раздел @ref TXLibSetup "Установка библиотеки", п.4.
 //!
 //! @note    Для наиболее корректной работы этой функции полностью отключайте оптимизацию при компиляции. Например,
@@ -5551,7 +5700,7 @@ template <typename T> inline T txUnlock (T value);
 //! @param   codepage  <i>Номер новой кодовой страницы консоли. Если не указано, то 1251.</i>
 //! @param   locale    <i>Новая локаль (информация о языке) стандартной библиотеки С++.
 //!                       Если не указано, то "Russian" или "ru_RU.CP1251".</i>
-//! @param   wLocale   <i>Новая локаль стандартной библиотеки С++ для wide character funstions.
+//! @param   wLocale   <i>Новая локаль стандартной библиотеки С++ для wide character functions.
 //!                       Если не указано, то L"Russian_Russia.ACP".</i>
 //!
 //! @return  Номер старой кодовой страницы консоли.
@@ -5591,6 +5740,8 @@ int txSetLocale (int codepage = _TX_CODEPAGE, const char locale[] = _TX_LOCALE, 
 //!
 //! @param   message  <i>Сообщение, выводимое в консоль через stderr, в формате printf(). Необязательно.</i>
 //!
+//! @return  Код клавиши, нажатой для выхода из паузы.
+//!
 //! @note    При нажатии Ctrl+C программа аварийно завершается.
 //!
 //! @see     txMessageBox(), TX_ERROR(), TX_DEBUG_ERROR()
@@ -5625,7 +5776,7 @@ int txPause (const char* message, ...) tx_printfy (1);
 
 #ifndef TX_COMPILED
 
-       char _txLogName[MAX_PATH]          = "";
+       char _txLogName[MAX_PATH]          = "~TXLog.log";
 
 #endif // TX_COMPILED
 
@@ -5643,7 +5794,7 @@ extern char _txLogName[];
 //!        - Установку кодовой страницы _TX_CODEPAGE (1251) консоли для поддержки русского языка,
 //!        - Установку русской локали стандартной библиотеки C++ ("Russian" / "ru_RU.CP1251" и L"Russian_Russia.ACP"),
 //!        - Переинициализация библиотек stdio и iostream на случай, если приложение не скомпоновано как консольное
-//!          и библиотеки остались неинициализированы,
+//!          и библиотеки остались не инициализированы,
 //!        - Перехват системных сигналов (деление на 0, арифметические ошибки, обращение по неверному адресу и т.д.),
 //!        - Перехват необработанных исключений,
 //!        - Смена заголовка консольного окна,
@@ -5696,10 +5847,10 @@ extern char _txLogName[];
 //!
 //! @note    Константа задается @b до включения файла @ref TXLib.h в программу. @nn
 //!
-//! @warning Если вы создали неконсольное приложение (см. выше), но запускаете его из среды пограммирования
+//! @warning Если вы создали неконсольное приложение (см. выше), но запускаете его из среды программирования
 //!          (например, CodeBlocks), то вы можете увидеть другое консольное окно служебной программы, с помощью
 //!          которой среда программирования запускает ваше приложение. Если вы запустите ваше неконсольное
-//!          приложение не из среды пограммирования, а непосредственно из Проводника, то вы не увидите
+//!          приложение не из среды программирования, а непосредственно из Проводника, то вы не увидите
 //!          никаких лишних консольных окон.
 //!
 //! @note    Btw, if you do not like that console window text is painted over graphic canvas window, set the
@@ -5931,11 +6082,11 @@ extern bool _txProcessSystemWarnings;
 //!
 //!          Программы разделяются пробелом или запятой. Допускается указание родителя запускающей программы, после
 //!          двоеточия. Имя программы, начинающееся с большой буквы - спец. случай для консоли CLion, см. функции
-//!          _txCleanup() и _txIsParentWaitable() в исходном тексте @ref TXLib.h.
+//!          _txCleanup() и _txIsParentListed() в исходном тексте @ref TXLib.h.
 //!
 //!          Может задаваться перед включением TXLib.h в программу.
 //!
-//! @see     _TX_ALLOW_KILL_PARENT, _TX_NOINIT, _txCleanup(), _txIsParentWaitable(), _txWatchdogTimeout
+//! @see     _TX_ALLOW_KILL_PARENT, _TX_NOINIT, _txCleanup(), _txIsParentListed(), _txWatchdogTimeout
 //}----------------------------------------------------------------------------------------------------------------
 
 #if !defined  (_TX_WAITABLE_PARENTS)
@@ -6211,17 +6362,17 @@ struct _txFuncEntry
 
 #if defined (_GCC_VER)
 
-    inline const char* __txLocCurSet (const char* _file, int _line, const char* _func)
-        { _txLoc::Cur.file = _file; _txLoc::Cur.line = _line; _txLoc::Cur.func = _func; return _func; }
+    inline const char* _txLocSet (_txLoc* _loc, const char* _file, int _line, const char* _func)
+        { _loc->file = _file; _loc->line = _line; _loc->func = _func; return _func; }
 
 #else
 
-    #define __txLocCurSet( _file, _line, _func ) \
-        ( _txLoc::Cur.file = (_file), _txLoc::Cur.line = (_line), _txLoc::Cur.func = (_func) )
+    #define _txLocSet( _loc, _file, _line, _func ) \
+        ( (_loc)->file = (_file), (_loc)->line = (_line), (_loc)->func = (_func) )
 
 #endif
 
-#define _txLocCurSet()     __txLocCurSet (__FILE__, __LINE__, __TX_FUNCTION__)
+#define _txLocCurSet()     _txLocSet (&_txLoc::Cur, __FILE__, __LINE__, __TX_FUNCTION__)
 
 #define _txLocLvlSet(lvl)  { _txLoc::Cur.trace = (lvl); }
 
@@ -6993,6 +7144,8 @@ _TX_END_NAMESPACE
     #undef   __STRICT_ANSI__
 #endif
 
+#undef _
+
 //-----------------------------------------------------------------------------------------------------------------
 
 #include <stdarg.h>
@@ -7061,6 +7214,8 @@ _TX_END_NAMESPACE
 #if defined (__STRICT_ANSI__UNDEFINED)
     #define  __STRICT_ANSI__                     // Redefine back
 #endif
+
+#define _ ,
 
 //-----------------------------------------------------------------------------------------------------------------
 
@@ -7144,6 +7299,10 @@ namespace Win32 {
 #endif
 
 // SEH exception codes. For GCC, see http://github.com/gcc-mirror/gcc/blob/master/libgcc/unwind-seh.c, lines 64-66.
+
+#ifndef STATUS_LONGJUMP
+#define STATUS_LONGJUMP                          0x80000026
+#endif
 
 #ifndef STATUS_POSSIBLE_DEADLOCK
 #define STATUS_POSSIBLE_DEADLOCK                 0xC0000194
@@ -7794,7 +7953,7 @@ struct CatchableType                                //  |     CatchableTypeArray
                                                     // GCC ABI C++ Exception layout. A/B are ExceptionInformation[0].
 namespace ABI {                                     // --------------------------------------------------------------
                                                     //
-struct __cxa_exception                              // Case A: "_Unwind_Exception* A" is undependent exception:
+struct __cxa_exception                              // Case A: "_Unwind_Exception* A" is independent exception:
     {                                               // --------------------------------------------------------
     union {                                         //
         struct                                      //           __cxa_exception:           std::type_info:
@@ -8076,7 +8235,7 @@ HICON            _txCreateTXIcon             (int size) tx_nodiscard;
 int              _txSetWindowText            (HWND wnd, const char* textRus, const char* textEng = NULL,
                                               int checkOfs = 0, const wchar_t checkLetters[2] = NULL);
 int              _txPauseBeforeTermination   (HWND canvas);
-int              _txIsParentWaitable         (DWORD* parentPID = NULL) tx_nodiscard;
+int              _txIsParentListed           (const char* list, DWORD* parentPID = NULL) tx_nodiscard;
 void             _txActivateWindow           (HWND wnd, unsigned mode);
 int              _txGetInput();
 
@@ -8164,10 +8323,6 @@ IMAGE_NT_HEADERS*_txGetNtHeaders             (HMODULE module = GetModuleHandle (
 bool             _txIsConsoleSubsystem();
 const char*      _txAppInfo() tx_nodiscard;
 
-#if defined (_CLANG_VER) && !defined (_MSC_VER)
-void             _txLibCppDebugFunction      (std::__libcpp_debug_info const& info);
-#endif
-
 #endif // TX_COMPILED
 
 inline bool      _txCanvas_OK                () tx_nodiscard;
@@ -8207,15 +8362,17 @@ int              _kbhit() tx_nodiscard;
     #define  _TX_HDC_FAILED( dc )              ( !Win32::GetObjectType (dc) &&                                                            \
                                                      (SetLastErrorEx (ERROR_INVALID_DATA,  0),  1) &&                                     \
                                                      (TX_ERROR ("\a" "Параметр \"%s\" неверен."                                           \
-                                                                                   " Возможно, этот холст не создан, или уже уничтожен, " \
-                                                                                    "или не загрузилась картинка.", #dc), 1) )
-    #define _TX_DEFAULT_HDC_FAILED( dc )       ( !(dc) &&                                                                                 \
-                                                     (TX_ERROR ("\a" "%s"                                                                 \
-                                                                     "Если вы указали параметр \"%s\", то он неверен.%s",                 \
-                                                                     (!txWindow()? "Окно рисования не создано или не в порядке.\n" : ""), \
+                                                                                   " Возможно, этот холст не создан, или уже уничтожен,"  \
+                                                                                   " или не загрузилась картинка.", #dc), 1) )
+    #define _TX_DEFAULT_HDC_FAILED( dc )       ( (!(dc) &&                                                                                \
+                                                     (SetLastErrorEx (ERROR_INVALID_DATA,  0),  1) &&                                     \
+                                                     (TX_ERROR ("\a" "%s" "Если вы указали параметр \"%s\", то он неверен.%s",            \
+                                                                     !txWindow()? "Окно рисования не создано или не в порядке.\n" : "",   \
                                                                      #dc,                                                                 \
-                                                                     ( txWindow()? " Возможно, этот холст не создан, или уже уничтожен, " \
-                                                                                    "или не загрузилась картинка." : "")), 1) )
+                                                                      txWindow()? " Возможно, этот холст не создан, или уже уничтожен,"   \
+                                                                                   " или не загрузилась картинка." : ""), 1))             \
+                                                 ||                                                                                       \
+                                                 _TX_HDC_FAILED (dc) )
 #else
 
     #define  _TX_ARGUMENT_FAILED( cond )       ( !(cond) &&                                           \
@@ -8266,9 +8423,11 @@ int              _kbhit() tx_nodiscard;
 //-----------------------------------------------------------------------------------------------------------------
 // Detouring in case of SEH mechanism
 
-#define _txSetJmp()                            ( setjmp (_txDumpExceptionObjJmp) == 0 )
+#define _txSetJmp()                            ( _txLocSet (&_txDumpExceptionObjLoc, __FILE__, __LINE__, __func__), \
+                                                 (setjmp (_txDumpExceptionObjJmp) == 0)? true : (_txClearJmp(), false) )
 
-#define _txClearJmp()                          { *(unsigned long long*) _txDumpExceptionObjJmp = 0; }
+#define _txClearJmp()                          ( _txLocSet (&_txDumpExceptionObjLoc, NULL, 0, NULL), \
+                                                 *(unsigned long long*) _txDumpExceptionObjJmp = 0 )
 
 //-----------------------------------------------------------------------------------------------------------------
 // IN and OUT are defined in WinDef.h to support Microsoft SAL. Remove them because they are often confused with user's code.
@@ -8304,6 +8463,8 @@ const int                      _TX_IDM_ABOUT               = 40000,      // Иден
                                _TX_IDM_CONSOLE             = 40001,
                                _TX_WM_CREATEWND            = 0x7FF0,     // Сообщения для создания/уничтожения
                                _TX_WM_DESTROYWND           = 0x7FF1;     // окон в потоке Canvas
+
+const char                     _TX_VSCODE_PARENTS[]        = "cmd.exe:code.exe, powershell.exe:code.exe";
 
 //-----------------------------------------------------------------------------------------------------------------
 
@@ -8348,16 +8509,17 @@ volatile WNDPROC               _txAltWndProc               = NULL;       // Альт
 
 _tx_thread _txLoc              _txLoc::Cur                 = {};         // Execution point tracking and trace state, see "$" macro
 
-volatile int                   _txErrors                   = 0;          // TX_ERROR calls sequental number
+volatile int                   _txErrors                   = 0;          // TX_ERROR calls sequential number
 volatile int                   _txOGLError                 = 0;          // Last OpenGL error when using tx_glGetError()
-volatile long                  _txSENumber                 = 0;          // SEH exceptions sequental number
-volatile long                  _txSEFatalNumber            = 0;          // SEH fatal exceptions sequental number
+volatile long                  _txSENumber                 = 0;          // SEH exceptions sequential number
+volatile long                  _txSEFatalNumber            = 0;          // SEH fatal exceptions sequential number
 char                           _txDumpSE [_TX_BUFSIZE]     = "";         // SEH dump data area
 char                           _txTraceSE[_TX_HUGEBUFSIZE] = "";         // Stack trace data area
 
 LPTOP_LEVEL_EXCEPTION_FILTER   _txPrevUEFilter             = NULL;       // Previous UnhandledExceptionFilter
 
 jmp_buf                        _txDumpExceptionObjJmp      = {};         // Hook for _txDumpExceptionObj
+_txLoc                         _txDumpExceptionObjLoc      = {};
 
 const volatile uintptr_t       _txForceImport[]            = { (uintptr_t) ::TerminateProcess,              (uintptr_t) ::ExitProcess,
                                                                (uintptr_t) ::FatalExit,                     (uintptr_t) ::FatalAppExitA,
@@ -8446,22 +8608,21 @@ $       _TX_CALL (Win32::SetThreadStackGuarantee, (&stackSize));
 
 $       _txOnSignal();
 
-$       if (!*_txLogName)
+$       if (!*_txLogName || _txLogName[0] == '~')
             {$ _tx_snprintf_s (_txLogName, sizeof (_txLogName) - 1, "%s.log", txGetModuleFileName()); }
 
 $       if (!_txIsDll)
             {
-$           _TX_CALL  (Win32::AddVectoredExceptionHandler, (1, (PVECTORED_EXCEPTION_HANDLER)  _txVectoredExceptionHandler));
+            #ifndef _CLANG_VER
+$        // _TX_CALL  (Win32::AddVectoredExceptionHandler, (1, (PVECTORED_EXCEPTION_HANDLER)  _txVectoredExceptionHandler));
+            #endif
+
 $           _txPrevUEFilter = SetUnhandledExceptionFilter  (   (LPTOP_LEVEL_EXCEPTION_FILTER) _txUnhandledExceptionFilter);
             }
 
 $       ::std::set_terminate             (_txOnTerminate);
 $       ::std::set_new_handler           (_txOnNewHandlerAnsi);
 $       _TX_CALL (Win32::set_unexpected, (_txOnUnexpected));
-
-        #if defined (_CLANG_VER) && !defined (_MSC_VER)
-$       ::std::__libcpp_debug_function = _txLibCppDebugFunction;
-        #endif
 
 $       SetConsoleCtrlHandler (_txOnConsoleCtrlEvent, true);
 
@@ -8550,7 +8711,8 @@ $       _doserrno = 0;
         #endif
         }
 
-$   Win32::CoCreateInstance = Win32::CoCreateInstance;  // g++ 5.1.0 bug, false warning "defined but not used"
+$   UNREFERENCED_PARAMETER (Win32::CoCreateInstance);             // g++ 5.1.0 bug, false warning "defined but not used"
+$   UNREFERENCED_PARAMETER (Win32::AddVectoredExceptionHandler);  //
 
 $   return 1;
     }
@@ -8591,27 +8753,60 @@ $   return (codePage == needCP);
 
 //-----------------------------------------------------------------------------------------------------------------
 
+#ifdef _TX_DEBUG_LOAD
+
+HMODULE _txLoadLibrary_ (const char* dll, int line);
+HMODULE _txLoadLibrary_ (const char* dll, int line)
+    {
+    txOutputDebugPrintf (_TX_DEBUG_LOAD "[" __FILE__ ":%04d] Loading \"%s\"... ", line, dll);
+
+    SetLastError (0);
+    HMODULE lib = LoadLibrary (dll);
+
+    if (lib) txOutputDebugPrintf (_TX_DEBUG_LOAD "SUCSESS [%p]\n", (void*) lib);
+    else     txOutputDebugPrintf (_TX_DEBUG_LOAD "error %lu\n", GetLastError());
+
+    return lib;
+    }
+
+#define LoadLibraryA(dll) _txLoadLibrary_ (dll, __LINE__)
+
+#endif
+
+//-----------------------------------------------------------------------------------------------------------------
+
 void (*_txDllImport (const char dllFileName[], const char funcName[], bool required /*= true*/)) ()
     {
     if (_TX_ARGUMENT_FAILED (dllFileName && *dllFileName)) return NULL;
     if (_TX_ARGUMENT_FAILED (funcName    && *funcName))    return NULL;
 
-    static char dllPaths [2][MAX_PATH] = {"", ""};
+    static char dllPaths [4][MAX_PATH] = {};
 
     if (!*dllPaths[0])
         {
-        const char dllDir[]  = "\\Windows\\";
+        const  char dllDir[] = "\\Windows\\";
+        char*  path = NULL;
+        size_t sz   = 0;
 
-        // dllPaths[0] is relative to the TX Setup directory stored in the Registry
+        // The dllPaths[0] is a directory where executable file is located
 
-        char* path = dllPaths[0];
+        path = dllPaths[0];
 
-        txRegQuery ("HKCU\\Software\\TX Library", "ProductDir", path, MAX_PATH);
-        strncat_s (path, MAX_PATH, dllDir, sizeof (dllDir) - 1);
+        sz = GetModuleFileName (NULL, path, MAX_PATH); path[sz] = 0;
+        if (char* dir = strrchr (path, '\\')) dir[1] = 0;
 
-        // dllPaths[1] is relative to TXib.h file used in compilation
+        // The dllPaths[1] is relative to directory where executable file is located
 
         path = dllPaths[1];
+
+        sz = GetModuleFileName (NULL, path, MAX_PATH); path[sz] = 0;
+        if (char* dir = strrchr (path, '\\')) dir[0] = 0;
+
+        if (*path) strncat_s (path, MAX_PATH, dllDir, sizeof (dllDir) - 1);
+
+        // The dllPaths[2] is relative to TXib.h file used in compilation
+
+        path = dllPaths[2];
 
         if (strchr (__FILE__, ':'))
             {
@@ -8619,13 +8814,22 @@ void (*_txDllImport (const char dllFileName[], const char funcName[], bool requi
             }
         else
             {
-            GetCurrentDirectory (MAX_PATH, path);
-            strncat_s (path, MAX_PATH, "\\" __FILE__, sizeof ("\\" __FILE__) - 1);
+            // No way to get include path at compile time using simple call "gcc file.cpp"
+
+            sz = GetCurrentDirectory (MAX_PATH, path); path[sz] = 0;
+            if (*path) strncat_s (path, MAX_PATH, "\\" __FILE__, sizeof ("\\" __FILE__) - 1);
             }
 
         if (char* dir = strrchr (path, '\\')) *dir = 0;
 
-        strncat_s (path, MAX_PATH, dllDir, sizeof (dllDir) - 1);
+        if (*path) strncat_s (path, MAX_PATH, dllDir, sizeof (dllDir) - 1);
+
+        // The dllPaths[3] is relative to the TX Setup directory stored in the Registry
+
+        path = dllPaths[3];
+
+        txRegQuery ("HKCU\\Software\\TX Library", "ProductDir", path, MAX_PATH);
+        if (*path) strncat_s (path, MAX_PATH, dllDir, sizeof (dllDir) - 1);
         }
 
     char dllName[MAX_PATH] = "", dllArch[MAX_PATH] = "";
@@ -8654,19 +8858,25 @@ void (*_txDllImport (const char dllFileName[], const char funcName[], bool requi
 
     for (int i = 0; !dll && i < (int) sizearr (dllPaths); i++)
         {
+        if (!dllPaths[i]) continue;
+
         char path [MAX_PATH] = "";
         strncpy_s (path, sizeof (path), dllPaths[i], sizeof (dllPaths[i]));
         size_t len = strlen (path);
 
+        SetDllDirectory (path);
+
         strncpy_s (path + len, sizeof (path) - len, dllArch, sizeof (dllArch));
-        if (!dll) dll = LoadLibrary (path);  //-V547
+        if (!dll && *dllArch) dll = LoadLibrary (path);  //-V547
 
         strncpy_s (path + len, sizeof (path) - len, dllName, sizeof (dllName));
-        if (!dll) dll = LoadLibrary (path);
+        if (!dll)             dll = LoadLibrary (path);
         }
 
-    if (!dll) dll = LoadLibrary (dllArch);
-    if (!dll) dll = LoadLibrary (dllName);
+    SetDllDirectory (NULL);
+
+    if (!dll && *dllArch) dll = LoadLibrary (dllArch);
+    if (!dll)             dll = LoadLibrary (dllName);
 
     if (!dll  && required) TX_ERROR ("\a" "Cannot load library \"%s%s%s\".",
                                            dllName, (arch? "\" / \"" : ""), dllArch);
@@ -8678,6 +8888,12 @@ void (*_txDllImport (const char dllFileName[], const char funcName[], bool requi
                                            funcName, dllName, (arch? "\" / \"" : ""), dllArch);
     return addr;
     }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+#ifdef _TX_DEBUG_LOAD
+    #undef LoadLibraryA
+    #endif
 
 //-----------------------------------------------------------------------------------------------------------------
 
@@ -8773,7 +8989,7 @@ $   HWND console = Win32::GetConsoleWindow();
 $   DWORD proc = 0;
 $   GetWindowThreadProcessId (console, &proc);
 
-$   if (console && (proc == GetCurrentProcessId() || _txIsParentWaitable()))
+$   if (console && (proc == GetCurrentProcessId() || _txIsParentListed (_TX_WAITABLE_PARENTS)))
         {$ ShowWindow (console, TX_CONSOLE_MODE); }
 
 $   HMENU menu = GetSystemMenu (txWindow(), false);
@@ -8934,7 +9150,7 @@ void _txOnExit (int retcode)
     if (retcode != 0)
         {
         OutputDebugString ("\n");
-        txOutputDebugPrintf ("%s - WARNING: %s:%d called\n", _TX_VERSION, __func__, retcode);
+        txOutputDebugPrintf ("%s - WARNING: %s (%d) called\n", _TX_VERSION, __func__, retcode);
         }
 
 $5  _txCleanup();
@@ -8986,7 +9202,7 @@ $5  _txCleanup();
 void _txOnFatalExit (int retcode)
     {
     OutputDebugString ("\n");
-    txOutputDebugPrintf ("%s - WARNING: %s:%d called\n", _TX_VERSION, __func__, retcode);
+    txOutputDebugPrintf ("%s - WARNING: %s (%d) called\n", _TX_VERSION, __func__, retcode);
 
 $5  _txCleanup();
 
@@ -9049,18 +9265,28 @@ $   txSetProgress (100, (!_txErrors)? Win32::TBPF_PAUSED : Win32::TBPF_ERROR);
 
 $   txSetWindowsHook (NULL);
 
-$   HWND canvas     = txWindow();
-$   HWND console    = Win32::GetConsoleWindow();
-$   unsigned thread = GetCurrentThreadId();
+$   HWND     canvas  = txWindow();
+$   HWND     console = Win32::GetConsoleWindow();
+$   unsigned thread  = GetCurrentThreadId();
 
-$   HWND wnd        = (canvas)? canvas : console;
+$   HWND wnd         = (canvas)? canvas : console;
 
-$   bool externTerm = (thread != _txMainThreadId &&
-                       thread != _txCanvas_ThreadId);
+$   bool externTerm  = (thread != _txMainThreadId &&
+                        thread != _txCanvas_ThreadId);
+
+$   DWORD list[1] = {};
+$   DWORD ownsConsole = (GetConsoleProcessList (list, 1) <= 1);
+
+$   int    envPause       = -1;
+$   char   envPause_s[10] = "";
+$   size_t envPause_sz    = 0;
+$   getenv_s (&envPause_sz, envPause_s, sizeof (envPause_s) - 1, "TX_PAUSE");
+
+    if (strcmp (envPause_s, "1") == 0 || _stricmp (envPause_s, "ON")  == 0) {$ envPause = 1; }
+    if (strcmp (envPause_s, "0") == 0 || _stricmp (envPause_s, "OFF") == 0) {$ envPause = 0; }
 
 $   DWORD parent = 0;
-$   int  isParentWaitable = _txIsParentWaitable (&parent);
-$   bool waitableParent   = !externTerm && isParentWaitable;
+$   int  isParentWaitable = _txIsParentListed (_TX_WAITABLE_PARENTS, &parent);
 
 $   if (canvas)
         {$ txSleep (5*_txWindowUpdateInterval); }
@@ -9089,13 +9315,15 @@ $   if (((canvas? _txMain : _txConsole) && !_txExit) || (_txErrors && thread == 
         {
 $       if (wnd)
             {
-$           if (isParentWaitable >= 0)
-                {$ _txActivateWindow (wnd, 0x08); }
+$           int isVSCode = _txIsParentListed (_TX_VSCODE_PARENTS);
+
+$           if (isParentWaitable >= 0 && !isVSCode)
+                {$ _txActivateWindow (wnd, 0x10); }
 
 $           EnableWindow (wnd, true);
             }
 
-$       if (console && isParentWaitable >= 0)
+$       if ((console && (ownsConsole || canvas || _txErrors || envPause == 1)) && isParentWaitable >= 0 && !(envPause == 0))
             {
 $           txPause ((_txErrors)?               "\f\n" "[Press F to Pay Respects...]" :
                      (!canvas && _txIsTTY (0))? "\f\n" "[Нажмите любую клавишу для завершения]" : "\f");
@@ -9132,7 +9360,7 @@ $   if (!txWindow())
         {$ DeleteCriticalSection (&_txCanvas_LockBackBuf); CRITICAL_SECTION zero = {0, -1}; _txCanvas_LockBackBuf = zero; }
 
 $   bool parentKilled = false;
-$   if (waitableParent && paused && _txNOP (_TX_ALLOW_KILL_PARENT))
+$   if (isParentWaitable && !externTerm && paused && _txNOP (_TX_ALLOW_KILL_PARENT))
         {
 $       console = Win32::GetConsoleWindow();
 
@@ -9150,7 +9378,7 @@ $   if (_txConsole)
         {$ _txSetWindowText (console, NULL); }
 
 $   if (_txMain && _txConsole)
-        {$ _txConsole_Detach (waitableParent && !parentKilled && !externTerm); }  //-V560
+        {$ _txConsole_Detach (isParentWaitable && !externTerm && !parentKilled); }  //-V560
 
 $   std::cout.flush();
 $   std::cerr.flush();
@@ -9173,7 +9401,7 @@ int txPause (const char* message /*= NULL*/, ...)
 $3  bool wine    = !!Win32::wine_get_version;
 
 $   HWND canvas  = txWindow();
-$   HWND console = Win32::GetConsoleWindow();
+$   HWND console = _TX_CALL (Win32::GetConsoleWindow,());
 $   HWND wnd     = (canvas)? canvas : console;
 $   bool istty0  = _txIsTTY (0);
 
@@ -9190,19 +9418,25 @@ $   SetConsoleOutputCP (_TX_CODEPAGE);
     if (*message != '\v') {$ txSetConsoleAttr (FOREGROUND_LIGHTGRAY); }
     else                  {$ message++; }
 
-$   _txActivateWindow (wnd, 0x08);
+$   int isVSCode = _txIsParentListed (_TX_VSCODE_PARENTS);
+
+$   if (!isVSCode)
+        {$ _txActivateWindow (wnd, 0x10); }
 
 $   va_list args;
 $   va_start (args, message);
 $   vfprintf (stderr, message, args);
-$   txOutputDebugPrintf (message, args);
 $   va_end (args);
+
+$   txOutputDebugPrintf ("%s - WARNING: PAUSE: %s\n", _TX_VERSION, (*message != '\n')? message : message+1);
 
 $   fflush (stderr);
 $   txSleep();
 
 $   Win32::FLASHWINFO flash = { sizeof (flash), wnd, FLASHW_ALL | FLASHW_TIMERNOFG, 0xFFFFFFFF };
 $   _TX_CALL (Win32::FlashWindowEx, (&flash));
+
+    if (console) {$ EnableWindow (console, true); }
 
 $   int ch = EOF;
     if (istty0) {$ while (!wine && _kbhit()) ch = _getch(); }
@@ -9211,13 +9445,13 @@ $   for (int i = 1; ; i++)  //-V2530
         {
 $       Sleep (_txWindowUpdateInterval);
 
-        if (!istty0 && !canvas)                   {$ break; }  // No need to run and hide
+        if (!istty0 && !canvas)                      {$ break; }
 
-        if (!wine && (ch = _txGetInput()) != EOF) {$ break; }  // Somebody hit something.
+        if (!wine && (ch = _txGetInput()) != EOF)    {$ break; }
 
-        if (canvas && !_txCanvas_ThreadId)        {$ break; }  // There was a window, and now there is not.
+        if (canvas && !_txCanvas_ThreadId)           {$ break; }
 
-        if (!Win32::GetConsoleWindow())           {$ break; }  // Console was destroyed
+        if (!_TX_CALL (Win32::GetConsoleWindow, ())) {$ break; }
 
         if (_TX_CALL (Win32::GhostWindowFromHungWindow, (canvas)))
             {$ TX_ERROR ("Похоже, программа зависла :("); break; }
@@ -9345,7 +9579,7 @@ $   return -3;
 
 //-----------------------------------------------------------------------------------------------------------------
 
-int _txIsParentWaitable (DWORD* parentPID /*= NULL*/)
+int _txIsParentListed (const char* list, DWORD* parentPID /*= NULL*/)
     {
 $4  PROCESSENTRY32* info = _txFindProcess();
 $   if (!info) return 0;
@@ -9359,10 +9593,11 @@ $   if (parentPID) *parentPID = info->th32ProcessID;
 
 $   info = _txFindProcess (info->th32ParentProcessID);          // info: grandparent
 
-$   char list[_TX_BUFSIZE] = _TX_WAITABLE_PARENTS;
-$   char* ctx = NULL;
+$   char lst[_TX_BUFSIZE] = "";
+$   strncpy_s (lst, sizeof (lst), list, strlen (list));
 
-$   for (char* p = strtok_s (list, ", ", &ctx); p; p = strtok_s (NULL, ", ", &ctx))
+$   char* ctx = NULL;
+$   for (char* p = strtok_s (lst, ", ", &ctx); p; p = strtok_s (NULL, ", ", &ctx))
         {
 $       char* gp = strchr (p, ':');
 
@@ -9397,7 +9632,7 @@ $   OutputDebugString ("\n");
     txOutputDebugPrintf ("%s - WARNING: %s(): Timeout (%d) expired, activating. %s\n",  // Kinda static reflection...
                          _TX_VERSION, __func__, *(int*) timeout, ((__func__[8] == 'd')? "Bark, bark" : "Meow, meow"));  //-V206
 $   DWORD parent = 0;
-$   if (_txIsParentWaitable (&parent))
+$   if (_txIsParentListed (_TX_WAITABLE_PARENTS, &parent))
         {
         txOutputDebugPrintf ("%s - WARNING: %s(): Calling _txKillProcess (0x%04lu)\n",
                              _TX_VERSION, __func__, (unsigned long) parent);
@@ -9528,7 +9763,7 @@ $   return &info;
 
 bool _txGetCommandLine (wchar_t cmdLine[], size_t szCmdLine, unsigned pid /*= _getpid()*/)
     {
-$6  if (_TX_ARGUMENT_FAILED (cmdLine))        return false;
+$9  if (_TX_ARGUMENT_FAILED (cmdLine))        return false;
 $   if (_TX_ARGUMENT_FAILED (szCmdLine >= 2)) return false;  //-V547
 
 $   if (pid == (unsigned) _getpid())
@@ -9578,6 +9813,10 @@ $   return (dosHdr->e_magic  == IMAGE_DOS_SIGNATURE &&
 //-----------------------------------------------------------------------------------------------------------------
 
 // TXLib continues to hack the reality to make your life better, sweeter and easier
+
+#ifdef _CLANG_VER
+#pragma clang attribute  push (__attribute__((no_sanitize ("undefined"))), apply_to = function)
+#endif
 
 uintptr_t _txSetProcAddress (const char funcName[], uintptr_t newFunc, const char dllName[] /*= NULL*/, int useHotPatching /*= false*/,
                              HMODULE module /*= NULL*/, bool debug /*= false*/)
@@ -9675,6 +9914,10 @@ $   VirtualProtect (impPtr, sizeof (*impPtr), rights, &rights);
 $   return (uintptr_t) oldFunc;
     }
 
+#ifdef _CLANG_VER
+#pragma clang attribute  pop
+#endif
+
 #undef RVA_
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -9737,34 +9980,53 @@ void _txActivateWindow (HWND wnd, unsigned mode)
     {
 $1  EnableWindow (wnd, true);
 
-$   if (mode & 0x10)
+$   if (mode & 0x20)
         {
 $       ShowWindow (wnd, SW_MINIMIZE);
 $       ShowWindow (wnd, SW_RESTORE);
         }
 
-$   if (mode & 0x08)
+$   if (mode & 0x10)
         {
 $       int focus = GetWindowThreadProcessId (GetForegroundWindow(), 0);
 
-$       AttachThreadInput   (GetCurrentThreadId(), focus, true);
+$       AttachThreadInput (GetCurrentThreadId(), focus, true);
+
+$       ShowWindow (wnd, SW_SHOW);
+
+$       AllowSetForegroundWindow (ASFW_ANY);
+$       LockSetForegroundWindow (LSFW_UNLOCK);
+$       keybd_event ((byte) VK_LMENU, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0); // https://stackoverflow.com/questions/10740346
 $       SetForegroundWindow (wnd);
-$       AttachThreadInput   (GetCurrentThreadId(), focus, false);
+
+$       _txWaitFor (GetForegroundWindow() == wnd, _TX_TIMEOUT);
+
+$       AttachThreadInput (GetCurrentThreadId(), focus, false);
         }
 
-$   if (mode & 0x04)
+$   if (mode & 0x08)
         {
 $       SetWindowPos (wnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
         }
 
-$   if (mode & 0x02)
+$   if (mode & 0x04)
         {
 $       SetWindowPos (wnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW | SWP_ASYNCWINDOWPOS);
         }
 
-$   if (mode & 0x01)
+$   if (mode & 0x02)
         {
 $       UpdateWindow (wnd);
+        }
+
+$   if (mode & 0x01)
+        {
+$       RECT r = {};
+$       GetWindowRect (wnd, &r);
+$       mouse_event (MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_LEFTDOWN, r.left, r.top, 0, 0);
+$       Sleep (100);
+$       mouse_event (MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_LEFTUP,   r.left, r.top, 0, 0);
+$       Sleep (100);
         }
     }
 
@@ -9817,7 +10079,7 @@ $   Win32::GdiSetBatchLimit (1);
 
     _TX_ON_DEBUG (OutputDebugString (_TX_VERSION " - STARTED: " _TX_MODULE "\n"));
 
-$   _txActivateWindow (wnd, 0x10);
+$   _txActivateWindow (wnd, 0x20);
 
 $   ShowWindow   (wnd, SW_SHOW);
 $   UpdateWindow (wnd);
@@ -10379,7 +10641,7 @@ $   return true;
 
 bool _txCanvas_OnCmdABOUT (HWND, WPARAM)
     {
-$8  //{ Overriding the missing names, if the set is uncomplete
+$8  //{ Overriding the missing names, if the set is incomplete
 
     #if defined (__MODULE)
         #define ABOUT_NAME_    __MODULE
@@ -10467,7 +10729,7 @@ $       assert (params);
 $       if (minimizeConsole)  // The fact that ShowWindow parameter of the program's console is taken from calling
                               // process' STARTUPINFO, was researched from Windows XP sources. See SetUpConsoleInfo()
                               // in windows\core\ntcon\client\dllinit.c. No one can miss stealing Windows sources. :(
-                              // Thank you Matt Pietrek, the author of "Undocumented Windows". Use the Source, Luke!..
+                              // Thank you Matt Pietrek, the author of "Undocumented Windows". Use the Source, Luke!
             {
 $           params->dwFlags    |= STARTF_USESHOWWINDOW;
 $           params->wShowWindow = SW_MINIMIZE;
@@ -11023,6 +11285,9 @@ $       return;
 
     txOutputDebugPrintf ("%s - WARNING: %s (%d, %d) called\n", _TX_VERSION, __func__, sig, fpe);
 
+$   if (!*_txLogName || _txLogName[0] == '~')
+        {$ _tx_snprintf_s (_txLogName, sizeof (_txLogName) - 1, "%s.log", txGetModuleFileName()); }
+
     #define GET_DESCR_(str, code, descr)  case (code): {$ (str) = " " #code ": " descr; break; }
 
 $   const char* sSig = "Неизвестный тип сигнала";
@@ -11231,6 +11496,7 @@ $   _TX_UNEXPECTED ("\a"
                     "Ошибка переполнения буфера %d (_SECERR_BUFFER_OVERRUN). Ставьте ассерты!\n\n"
                     "С помощью _set_security_error_handler() вы можете сами обработать эту ошибку "
                     "и более торжественно завершить программу. Ставьте же ассерты.", code);
+$   abort();
     }
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -11244,6 +11510,7 @@ $   _TX_UNEXPECTED ("\a"
                     "или деструкторах базовых классов - не вызывайте там таких функций.\n\n"
                     "С помощью _set_purecall_handler() вы можете сами обработать эту ошибку "
                     "и проверить свое знание С++ :)");
+$   abort();
     }
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -11267,6 +11534,7 @@ $   WideCharToMultiByte (_TX_CODEPAGE, 0, wFile, -1, file, sizeof (file) - 1, NU
 $$  _txError (file, (int) line, func, 0, "\a"
               "В функцию %s передан неверный параметр: неверно, что %s. Не надо так.\n\n"
               "С помощью _set_invalid_parameter_handler() вы можете сами обработать эту ошибку.", func, expr);
+$   abort();
     }
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -11280,6 +11548,7 @@ $5  assert (&info);
 $$  _txError (info.__file_, info.__line_, NULL, 0, "\a"
               "Оказалось неверно, что %s (%s). Не надо так.\n\n"
               "С помощью std::__libcpp_debug_function вы можете сами обработать эту ошибку.", info.__pred_, info.__msg_);
+$   abort();
     }
 
 #endif
@@ -11346,6 +11615,32 @@ $   for (int i = 0; i < nErrors; i++) _RTC_SetErrorType ((_RTC_ErrorNumber) i, (
 $   InterlockedExchange (&running, 0);
 $   return 1;
     }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+#if (_CLANG_VER >= 2000)
+
+void ::std::__libcpp_verbose_abort (char const* format, ...)
+    {
+$5  assert (&format);
+
+$   char msg [_TX_BUFSIZE] = "";
+
+$   va_list args;
+$   va_start (args, format);
+$   _snprintf_s (msg, sizeof (msg), format, args);
+$   va_end (args);
+
+$   _TX_UNEXPECTED ("\a\t"
+                    "Оказалось неверно, что: %s. Не надо так.\n\n"
+                    "%s%s"
+                    "С помощью функции signal() вы можете сами обработать эту ошибку.",
+                    msg,
+                    ((_txDumpSE[1] == '\n')? "" : "\n\n"), _txDumpSE + 1);
+$   abort();
+    }
+
+#endif
 
 #pragma runtime_checks ("", restore)
 
@@ -11472,9 +11767,7 @@ long WINAPI _txUnhandledExceptionFilter (EXCEPTION_POINTERS* exc)
             }
         else
             {
-$6          _txClearJmp();
-
-            _TX_UNEXPECTED ("\t\a" "%s"
+$6          _TX_UNEXPECTED ("\t\a" "%s"
                             "С помощью функции _set_se_translator() вы можете сами обработать эту ошибку.\n\n"
                             "Дополнительно: Сбой вызова стандартного обработчика неперехваченнных исключений SEH." + !*_txDumpSE,
                             _txDumpSE + 1);
@@ -11512,6 +11805,7 @@ long _txOnExceptionSEH (EXCEPTION_POINTERS* exc, const char func[])
     if (code == DBG_PRINTEXCEPTION_C                  ||
         code == DBG_PRINTEXCEPTION_WIDE_C             ||
         code == DBG_THREAD_NAME                       ||
+        code == STATUS_LONGJUMP                       ||
        (code == RPC_S_SERVER_UNAVAILABLE  && !unhExc) ||
        (code == RPC_S_CALL_CANCELLED      && !unhExc) ||
        (code == EXCEPTION_BREAKPOINT && IsDebuggerPresent()))
@@ -11526,13 +11820,16 @@ long _txOnExceptionSEH (EXCEPTION_POINTERS* exc, const char func[])
     _txSENumber = _txSENumber + 1;
     if (HIBYTE (HIWORD (code)) == 0xC0) _txSEFatalNumber = _txSEFatalNumber + 1;
 
-    OutputDebugString ("\n");
+    OutputDebugString ("");
     txOutputDebugPrintf ("%s - WARNING: #%ld: %s (code 0x%08lX, addr 0x%p) called\n",
                          _TX_VERSION, _txSENumber, func, (unsigned long) code, addr);
 
 $6  if (*(unsigned long long*) _txDumpExceptionObjJmp)
         {
-$       longjmp (_txDumpExceptionObjJmp, 1);  //-V2512
+$       txOutputDebugPrintf ("%s - WARNING: #%ld: longjmp to %s() at %s:%d\n", _TX_VERSION, _txSENumber,
+                             _txDumpExceptionObjLoc.func, _txDumpExceptionObjLoc.file, _txDumpExceptionObjLoc.line);
+
+        longjmp (_txDumpExceptionObjJmp, 1);  //-V2512
         }
 
     tx_fpreset();
@@ -11568,13 +11865,16 @@ $           prevAddr = addr;
 $       SetLastError (err);
         }
 
-$   if (_txDumpSE[0]     == '\a'                   ||
-        _txSENumber      >= _TX_EXCEPTIONS_LIMIT+0 ||
-        _txSEFatalNumber >= _TX_FATAL_EXCEPTIONS_LIMIT+0)
+$   if (_txDumpSE[0]     == '\a'                         ||
+        _txSENumber      >= _TX_EXCEPTIONS_LIMIT+0       ||
+        _txSEFatalNumber >= _TX_FATAL_EXCEPTIONS_LIMIT+0 ||
+        exc->ExceptionRecord->ExceptionFlags & EXCEPTION_NONCONTINUABLE)
         {
 $       _TX_UNEXPECTED ("\a\t" "%s"
                         "С помощью функции _set_se_translator() вы можете сами обработать эту ошибку.",
                         _txDumpSE + 1);
+
+$       return EXCEPTION_EXECUTE_HANDLER;
         }
 
 $   return EXCEPTION_CONTINUE_SEARCH;
@@ -11620,6 +11920,7 @@ $   switch (code)
         GET_DESCR_ (EXCEPTION_GUARD_PAGE,               "\a" "Попытка доступа к защищенной странице памяти.")
         GET_DESCR_ (EXCEPTION_INVALID_HANDLE,           "\a" "Неверный или уже закрытый дескриптор.")
         GET_DESCR_ (STATUS_POSSIBLE_DEADLOCK,           "\a" "Возможно, взаимная блокировка ресурсов.")
+        GET_DESCR_ (STATUS_LONGJUMP,                    " "  "Произошел longjmp().")
 
         GET_DESCR_ (EXCEPTION_FLT_STACK_CHECK,          "\a" "Ошибка стека при операции с плавающей точкой.")
         GET_DESCR_ (EXCEPTION_FLT_DENORMAL_OPERAND,     " "  "Денормализация числа с плавающей точкой.")
@@ -11823,6 +12124,7 @@ $           break;
             //       [2] http://github.com/gcc-mirror/gcc/blob/master/libstdc++-v3/libsupc++/vterminate.cc
 
             using namespace abi;
+            using namespace ABI;
 
 $           ABI::__cxa_exception* cxa_exception = __cxa_get_globals() -> caughtExceptions;
 
@@ -11957,13 +12259,13 @@ $   if (mangledName)
         {
         if (_txSetJmp())
             {
-            #define PRINT_VAL_(fmt, typ, ...)                                                                          \
-                else if (*type == typeid (      typ       )) {$ PRINT_ (" = " #fmt, (* (typ* ) object) __VA_ARGS__); } \
-                else if (*type == typeid (const typ       )) {$ PRINT_ (" = " #fmt, (* (typ* ) object) __VA_ARGS__); } \
-                else if (*type == typeid (      typ*      )) {$ PRINT_ (" = " #fmt, (**(typ**) object) __VA_ARGS__); } \
-                else if (*type == typeid (const typ*      )) {$ PRINT_ (" = " #fmt, (**(typ**) object) __VA_ARGS__); } \
-                else if (*type == typeid (      typ* const)) {$ PRINT_ (" = " #fmt, (**(typ**) object) __VA_ARGS__); } \
-                else if (*type == typeid (const typ* const)) {$ PRINT_ (" = " #fmt, (**(typ**) object) __VA_ARGS__); }
+            #define PRINT_VAL_(fmt, ty, ...)                                                                         \
+                else if (*type == typeid (      ty       )) {$ PRINT_ (" = " #fmt, (* (ty* ) object) __VA_ARGS__); } \
+                else if (*type == typeid (const ty       )) {$ PRINT_ (" = " #fmt, (* (ty* ) object) __VA_ARGS__); } \
+                else if (*type == typeid (      ty*      )) {$ PRINT_ (" = " #fmt, (**(ty**) object) __VA_ARGS__); } \
+                else if (*type == typeid (const ty*      )) {$ PRINT_ (" = " #fmt, (**(ty**) object) __VA_ARGS__); } \
+                else if (*type == typeid (      ty* const)) {$ PRINT_ (" = " #fmt, (**(ty**) object) __VA_ARGS__); } \
+                else if (*type == typeid (const ty* const)) {$ PRINT_ (" = " #fmt, (**(ty**) object) __VA_ARGS__); }
             #define NO_
 
             if (false) ;
@@ -11983,8 +12285,6 @@ $               PRINT_ (", what(): \"%s\"", e->what());
         else
             {$ err = 2; }
         }
-
-$   _txClearJmp();
 
 $   if (err && object && szObj)
         {
@@ -12039,6 +12339,8 @@ $   int frames = _txStackWalk (framesToSkip + !context, sizearr (capture), captu
 $   memset (trace, 0, sizeof (trace));
 $   char* s = trace;
 
+$   bool haveSrcInfo = false;
+
     #define PRINT_(...)  s += _tx_snprintf_s (s, sizeof (trace) - 1 - 3 - (s-trace), ##__VA_ARGS__)
 
 $   for (int i = 0, n = 0; i < frames; i++)  //-V2530
@@ -12073,12 +12375,27 @@ $       n++;
 
         if (module)                                {$ PRINT_ (" in %s%s",     module, ((sym && *sym->Name)? ": " : "")); }
         if (sym  && *sym->Name)                    {$ PRINT_ ("%s()",         sym->Name);                                }
-        if (line && line->FileName)                {$ PRINT_ (" at %s",       line->FileName);                           }
-        if (line && line->LineNumber)              {$ PRINT_ (" (%d)",  (int) line->LineNumber);                         }
+        if (line && line->FileName)                {$ PRINT_ (" at %s",       line->FileName);   haveSrcInfo = true;     }
+        if (line && line->LineNumber)              {$ PRINT_ (":%d",    (int) line->LineNumber); haveSrcInfo = true;     }
         if (source)                                {$ PRINT_ (":\n\n" "%s\n", source);                                   }
 
         if (sym && strcmp (sym->Name , "main") == 0) {$ break; }
         }
+
+$   while (s > trace && s[-1] == '\n') s--;
+$   *s = 0;
+
+$   int bits = sizeof (void*) * CHAR_BIT;
+    if (!Win32::SymSetOptions || !Win32::MinGW::SymSetOptions) {$ PRINT_ ("TXLib бедствует: Не загрузилась библиотека"); }
+    if (!Win32::SymSetOptions)                                 {$ PRINT_ (" DbgHelp%d.dll или DbgHelp.dll,", bits); }
+    if (                         !Win32::MinGW::SymSetOptions) {$ PRINT_ (" MgwHelp%d.dll или MgwHelp.dll,", bits); }
+    if (!Win32::SymSetOptions || !Win32::MinGW::SymSetOptions) {$ PRINT_ (" отладочная информация недоступна :(\n"); }
+
+$   while (s > trace && s[-1] == '\n') s--;
+$   *s = 0;
+
+$   if (!haveSrcInfo)
+        {$ PRINT_ ("\n\n" "TXLib печалится: Нет информации об исходных файлах. Вы не забыли опцию -g при компиляции?"); }
 
     #if defined (_MSC_VER)
     #pragma warning (push)
@@ -12110,7 +12427,7 @@ $   return trace;
 int _txStackWalk (int framesToSkip, size_t szCapture, void* capture[], CONTEXT* context /*= NULL*/,
                   HANDLE thread /* = GetCurrentThread()*/)
     {
-$6  namespace MinGW = Win32::MinGW;
+$9  namespace MinGW = Win32::MinGW;
 
 $   assert (capture);
 
@@ -12196,11 +12513,7 @@ $       frame.AddrFrame.Offset = ctx.Esp;
 
 $   assert (cpu);
 
-    if (_txSetJmp())
-        {
-$       _txSymGetFromAddr ((void*) 1);  //-V566
-        }
-$   _txClearJmp();
+    if (_txSetJmp()) {$ _txSymGetFromAddr ((void*) 1); }  //-V566
 
 $   int  frames = -1;
 
@@ -12234,8 +12547,6 @@ $       assert (0 <= frames && frames < (int) szCapture);  //-V202
 
 $       capture[frames] = addr;                            //-V108
         }
-
-$   _txClearJmp();
 
     if (!thisThread) {$ ResumeThread (thread); }
 
@@ -12301,21 +12612,23 @@ $       sym->MaxNameLen   = sizeof (buffer) - sizeof (Win32::SYMBOL_INFO) - 1;
 $       sym->SizeOfStruct = sizeof (Win32::SYMBOL_INFO);
 $       unsigned long long ofs = 0;
 
-$       _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+$       int ok = _TX_CALL (LIB_::SymFromAddr, (process, (uintptr_t) addr, &ofs, sym));
+        if (!ok) {$ return false; }
 
         if (strcmp (sym->Name, "??") == 0) {$ *sym->Name = 0; }
 
 $       *symbol = sym;
         }
 
-$   static Win32::IMAGEHLP_LINE64 line64 = { sizeof (line) };
+$   static Win32::IMAGEHLP_LINE64 line64 = { sizeof (line64) };
 
 $   if (line)
         {
 $       memset (&line64, 0, sizeof (line64));
 
 $       DWORD ofs = 0;
-$       _TX_CALL (LIB_::SymGetLineFromAddr64, (process, (uintptr_t) addr, &ofs, &line64));
+$       int ok = _TX_CALL (LIB_::SymGetLineFromAddr64, (process, (uintptr_t) addr, &ofs, &line64));
+        if (!ok) {$ return false; }
 
 $       *line = &line64;
         }
@@ -12623,56 +12936,61 @@ const char* _txProcessError (const char file[], int line, const char func[], uns
     txSetConsoleAttr ((options & isFatal)? FOREGROUND_LIGHTMAGENTA : FOREGROUND_LIGHTRED);
     if (color) {$ txSetConsoleAttr (color); }
 
-    int oldCodePage = txSetLocale();
+    int oldCP = GetConsoleOutputCP();
+    SetConsoleOutputCP (_TX_CODEPAGE);
 
-    fprintf (stderr,      "\n" "--------------------------------------------------\n"
-                               "%s\n"
-                               "--------------------------------------------------\n",
-                               what);
+    fprintf (stderr,        "\n" "--------------------------------------------------\n"
+                                 "%s",
+                                 what);
+    if (stkTrace)
+        {  fprintf (stderr, "\n" "--------------------------------------------------\n"
+                                 "Стек вызовов:\n\n"
+                                 "%s\n\n"
+                                 "--------------------------------------------------\n",
+                                 stkTrace); }
+    errno = 0;
+    char sErrno[256] = "";
+    FILE* log = NULL;
+    if (*_txLogName) fopen_s (&log, _txLogName, "a");
+    strerror_s (sErrno, sizeof (sErrno), errno);
 
-    if (stkTrace && strstr (stkTrace, ".exe: "))
-        {$ fprintf (stderr,    "Стек вызовов:\n\n"
-                               "%s\n\n"
-                               "--------------------------------------------------\n",
-                               stkTrace); }
+    if (!log)
+        {$ fprintf (stderr, "\n" "TXLib шокирован: Не открывается лог-файл \"%s\" для записи: Ошибка %d (%s)!\n",
+                                 _txLogName, errno, sErrno); }
 
-    SetConsoleOutputCP (oldCodePage);
+    SetConsoleOutputCP (oldCP);
     txSetConsoleAttr (restore);
 
-    if (*_txLogName) do  //-V2530
+    if (log)
         {
-        FILE* log = NULL; fopen_s (&log, _txLogName, "a");
-        if (!log) {$ break; }
+        fprintf (log,       "\n" "--------------------------------------------------\n"
+                                 "%s\n"
+                                 "--------------------------------------------------\n",
+                                 what);
 
-        fprintf (log,     "\n" "--------------------------------------------------\n"
-                               "%s\n"
-                               "--------------------------------------------------\n",
-                               what);
-
-        fprintf (log,          "Стек вызовов:\n\n"  //-V576
-                               "%s\n",
-                               (*_txTraceSE)? _txTraceSE : stkTrace);
+        fprintf (log,            "Стек вызовов:\n\n"  //-V576
+                                 "%s\n",
+                                 (*_txTraceSE)? _txTraceSE : stkTrace);
 
         #if defined (_TX_ALLOW_TRACE) || defined (_DEBUG)
 
         if (_txLoc::Cur.inTX > 0 && txTrace && *txTrace)
             {
-            fprintf (log, "\n" "--------------------------------------------------\n"
-                               "Стек вызовов TX:\n\n"
-                               "%s\n",
-                               txTrace);
+            fprintf (log,   "\n" "--------------------------------------------------\n"
+                                 "Стек вызовов TX:\n\n"
+                                 "%s\n",
+                                 txTrace);
             }
 
         #endif
 
-        fprintf (log,     "\n" "--------------------------------------------------\n"
-                               "%s\n\n"
-                               "--------------------------------------------------\n",
-                               _txAppInfo());
-        fclose (log);
-        break;
+        fprintf (log,       "\n" "--------------------------------------------------\n"
+                                 "%s\n\n"
+                                 "--------------------------------------------------\n",
+                                 _txAppInfo());
         }
-        while (false);
+
+    if (log) fclose (log);
 
     txSleep();
 
@@ -12682,11 +13000,14 @@ const char* _txProcessError (const char file[], int line, const char func[], uns
         {
         txSleep (_txWindowUpdateInterval);
 
+        HWND wnd = GetForegroundWindow();
+
         PRINT_ ("\n" "Прервать программу?");
 
         ret = txMessageBox (what, ((options & isWarning)? "Предупреждение"   :
                                    (options & isFatal)?   "Фатальная ошибка" :
                                                           "Ошибка в программе"), MB_ICONSTOP | MB_SYSTEMMODAL | MB_YESNOCANCEL);
+        _txActivateWindow (wnd, 0x10);
         }
 
     SetLastError (winErr);
@@ -12762,7 +13083,6 @@ int _txOnErrorReport (int type, const char* text, int* ret)
         WriteFile (log, text, (DWORD) strlen (text), &n, NULL);  //-V202
 
         CloseHandle (log);
-        break;
         }
         while (false);
 
@@ -12785,9 +13105,8 @@ $   static wchar_t headerW [_TX_BUFSIZE    * sizeof (wchar_t)] = L"[NULL header]
 
 $   txSleep();
 
-$   HWND wnd = _txCanvas_Window;
-$   int  ret = MessageBoxW ((wnd && IsWindowVisible (wnd))? wnd : _TX_CALL (Win32::GetConsoleWindow,()),
-                            textW, headerW, flags | MB_SETFOREGROUND | MB_TOPMOST);
+$   int ret = MessageBoxW (NULL, (*textW)? textW : L"[Empty]", (*headerW)? headerW : L"[Empty]",
+                           flags | MB_SETFOREGROUND | MB_TOPMOST);
 
 $   GetAsyncKeyState (VK_SHIFT); GetAsyncKeyState (VK_CONTROL); GetAsyncKeyState (VK_MENU);
 
@@ -13041,30 +13360,40 @@ int _kbhit()
 
 const char* txGetModuleFileName (bool fileNameOnly /*= true*/)
     {
-    static char name[MAX_PATH] = "";
+$9  static char name[MAX_PATH] = "";
 
-    if (!*name)
+$   if (!*name)
         {
-        if (!GetModuleFileName (NULL, name, sizeof (name) - 1)) *name = 0;
+$       if (!GetModuleFileName (NULL, name, sizeof (name) - 1))
+            {$ strncpy_s (name, sizeof (name), "~TXApp", 6); }
 
-        char* ext = strrchr (name, '.');
-        if (ext) _strlwr_s (ext, sizeof (name) - 1 - (ext - name));
+$       char* ext = strrchr (name, '.');
+$       if (ext) _strlwr_s (ext, sizeof (name) - 1 - (ext - name));
         }
 
-    assert (*name);
+$   assert (*name);
 
-    if (fileNameOnly) return name;
+$   if (fileNameOnly) return name;
 
-    static char fullName[MAX_PATH] = "";
-    strncpy_s (fullName, sizeof (fullName), name, sizeof (fullName) - 1);
+$   static char fullName[MAX_PATH] = "";
+$   static char* title = fullName;
 
-    char* title = strrchr (fullName, '\\'); if (!title) title = fullName;
-    char* ext   = strrchr (fullName,  '.'); if (!ext)   ext   = fullName + strlen (fullName);
+$   if (!*fullName || !*title)
+        {
+$       strncpy_s (fullName, sizeof (fullName), name, sizeof (fullName) - 1);
 
-    size_t sz = sizeof (fullName) - (ext - fullName);
-    strncpy_s (ext, sz-1, " - TXLib", sz);
+$             title = strrchr (fullName, '\\'); if (!title) title = fullName;
+$       char* ext   = strrchr (fullName,  '.'); if (!ext)   ext   = fullName + strlen (fullName);
 
-    return title + 1;
+$       size_t sz = sizeof (fullName) - (ext - fullName);
+$       strncpy_s (ext, sz-1, " - TXLib", sz);
+
+$       title++;
+        }
+
+$   assert (*title);
+
+$   return title;
     }
 
 #endif // TX_COMPILED
@@ -13745,7 +14074,7 @@ bool txTransparentBlt (HDC destImage,   double xDest, double yDest, double width
     {
     // Это проверки того, правильные ли HDC вы передали в функцию.
     // Не бойтесь долларов - <s>это не запрещенная валюта</s> это макросы для отладки TXLib'а.
-    // При первом чтении это можно пропустить.
+    // (!) При первом чтении это можно пропустить.
 
 $1  if (_TX_HDC_FAILED (destImage))   return false;
 $   if (_TX_HDC_FAILED (sourceImage)) return false;
@@ -13760,7 +14089,7 @@ $   if (!height) height = size.y;  //-V550
     // Это проверка того, что картинка (или ее часть) правильно попадает в окно (точнее, HDC приемника - destination, dest).
     // Если она "вылезает" из окна в любую сторону, то Win32::TransparentBlt() не будет работать. Эта проверка происходит только
     // в режиме отладки (когда не задан макрос NDEBUG - No Debugging, без отладки).
-    // При первом чтении это можно пропустить.
+    // (!) При первом чтении это можно пропустить.
 
 #if !defined (NDEBUG)
 
@@ -13778,7 +14107,7 @@ $   bool ok = true;
 
 $   if (Win32::TransparentBlt)
         {
-        // А вот теперь уже надо начать читать.
+        // (!) А вот теперь уже надо начать читать.
         //
         // Ниже - это вызов стандартной Win32::TransparentBlt() из ядра Windows. Погуглите "Windows TransparentBlt function"
         // и почитайте про ее параметры.
@@ -14003,25 +14332,25 @@ $   return ok;
 double txSleep (double time)
     {
 $1  LARGE_INTEGER start = {};
-$   QueryPerformanceCounter (&start) asserted;
+    QueryPerformanceCounter (&start) asserted;
 
-$   LARGE_INTEGER freq = {};
-$   QueryPerformanceFrequency (&freq) asserted;
+    LARGE_INTEGER freq = {};
+    QueryPerformanceFrequency (&freq) asserted;
 
-$   int lock = _txCanvas_RefreshLock;
-$   _txCanvas_RefreshLock = 0;
+    int lock = _txCanvas_RefreshLock;
+    _txCanvas_RefreshLock = 0;
 
-$   HWND wnd = txWindow();
+    HWND wnd = txWindow();
     if (wnd) {$ RedrawWindow (wnd, NULL, NULL, RDW_INVALIDATE | RDW_INTERNALPAINT | RDW_UPDATENOW); }
 
-$   Sleep (ROUND ((time >= 0)? time : 0));
+    Sleep (ROUND ((time >= 0)? time : 0));
 
-$   _txCanvas_RefreshLock = lock;
+    _txCanvas_RefreshLock = lock;
 
-$   LARGE_INTEGER stop = {};
-$   QueryPerformanceCounter (&stop) asserted;
+    LARGE_INTEGER stop = {};
+    QueryPerformanceCounter (&stop) asserted;
 
-$   return 1000.0 * (double) (stop.QuadPart - start.QuadPart) / (double) freq.QuadPart;
+    return 1000.0 * (double) (stop.QuadPart - start.QuadPart) / (double) freq.QuadPart;
     }
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -14282,7 +14611,9 @@ $   for (; text && *text; text++)
         else break;
         }
 
-$   char textA [_TX_BUFSIZE] = "You asked to speak empty text. I would rather say that TX Library is cool! Cats rules!";
+$   char textA [_TX_BUFSIZE] = "<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='EN'>"
+                               "You asked to speak empty text. I would rather say that TX Library is cool! Cats rules!"
+                               "</speak>";
 
 $   va_list arg; va_start (arg, text);
     if (text && *text) {$ _tx_vsnprintf_s (textA, sizeof (textA) - 1, text, arg); }
@@ -14297,7 +14628,7 @@ $   int time = GetTickCount();
 $   static wchar_t textW [_TX_BUFSIZE * sizeof (wchar_t)] = L"";
 $   MultiByteToWideChar (_TX_CODEPAGE, 0, textA, -1, textW, sizearr (textW));
 
-$   static ISpVoice* voice = NULL;
+$   static ISpVoice* voice = NULL;  // This is bad rough approach. Due to this static, txSpeak() calls are restricted to one .cpp-file.
 
 $   if (text && !voice)
         {
@@ -14905,16 +15236,34 @@ unsigned txExtractColor (COLORREF color, COLORREF component)
 $1  switch (component)
         {
         case TX_RED:
-        case TX_HUE:        $ return (color >>  0) & 0xFF;
+        case TX_HUE:
+        case TX_LAB_L:      $ return (color >>  0) & 0xFF;
 
         case TX_GREEN:
-        case TX_SATURATION: $ return (color >>  8) & 0xFF;
+        case TX_SATURATION:
+        case TX_LAB_A:      $ return (color >>  8) & 0xFF;
 
         case TX_BLUE:
-        case TX_LIGHTNESS:  $ return (color >> 16) & 0xFF;
+        case TX_LIGHTNESS:
+        case TX_LAB_B:      $ return (color >> 16) & 0xFF;
 
         default:            $ return CLR_INVALID;
         }
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+template <typename T, typename T2, typename T3>
+inline T _txClamp (T val, T2 min, T3 max)
+    {
+    return (val < min)? min : (val > max)? max : val;
+    }
+
+inline COLORREF _txRGB (double r, double g, double b)
+    {
+    return RGB (_txClamp (ROUND (r), 0, 255),
+                _txClamp (ROUND (g), 0, 255),
+                _txClamp (ROUND (b), 0, 255));
     }
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -14960,7 +15309,7 @@ $       if (xRGB::zero (b - m1)) h = 4 + cg - cr;
 
 $   h = (h >= 0)? h*60 : h*60 + 360;
 
-$   return RGB (ROUND (h / 360.0 * 256), ROUND (s * 255), ROUND (l * 255));
+$   return _txRGB (h / 360.0 * 256, s * 255, l * 255);
     }
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -14994,7 +15343,156 @@ $   double h  = txExtractColor (hslColor, TX_HUE)        / 256.0 * 360,
            g = (si)? xRGB::calc (h,       m1, m2) : l,
            b = (si)? xRGB::calc (h - 120, m1, m2) : l;
 
-$   return RGB (ROUND (r * 255), ROUND (g * 255), ROUND (b * 255));
+$   return _txRGB (r * 255, g * 255, b * 255);
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+COLORREF txRGB2Lab (COLORREF rgbColor)
+    {
+    // Convert sRGB to XYZ referring to a D65/2 standard illuminant. See https://www.easyrgb.com/en/math.php
+
+$1  double r = txExtractColor (rgbColor, TX_RED)   / 255.0,
+           g = txExtractColor (rgbColor, TX_GREEN) / 255.0,
+           b = txExtractColor (rgbColor, TX_BLUE)  / 255.0;
+
+$   r = ((r > 0.04045)? pow ((r + 0.055) / 1.055, 2.4) : r / 12.92) * 100;
+$   g = ((g > 0.04045)? pow ((g + 0.055) / 1.055, 2.4) : g / 12.92) * 100;
+$   b = ((b > 0.04045)? pow ((b + 0.055) / 1.055, 2.4) : b / 12.92) * 100;
+
+$   double x = r * 0.4124 + g * 0.3576 + b * 0.1805,
+           y = r * 0.2126 + g * 0.7152 + b * 0.0722,
+           z = r * 0.0193 + g * 0.1192 + b * 0.9505;
+
+    // Convert XYZ to Lab referring to a D65/2 standard illuminant. See https://www.easyrgb.com/en/math.php
+
+$   x /=  95.047;
+$   y /= 100.000;
+$   z /= 108.883;
+
+$   x = (x > 0.008856)? pow (x, 1.0/3.0) : 7.787 * x + 16.0/116.0;
+$   y = (y > 0.008856)? pow (y, 1.0/3.0) : 7.787 * y + 16.0/116.0;
+$   z = (z > 0.008856)? pow (z, 1.0/3.0) : 7.787 * z + 16.0/116.0;
+
+$   double L = (116.0 * y) - 16.0,
+           a =  500.0 * (x - y);
+           b =  200.0 * (y - z);
+
+    // Storing Lab in range [0..255]: L = L * 2.55; a,b = (a,b + 100) * 1.275
+
+$   return _txRGB (L          / 100.0 * 255,
+                  (a + 100.0) / 200.0 * 255,
+                  (b + 100.0) / 200.0 * 255);
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+COLORREF txLab2RGB (COLORREF labColor)
+    {
+    // Convert Lab to XYZ referring to a D65/2 standard illuminant. See https://www.easyrgb.com/en/math.php
+
+$1  double L = txExtractColor (labColor, TX_LAB_L) / 255.0 * 100,
+           a = txExtractColor (labColor, TX_LAB_A) / 255.0 * 200 - 100.0,
+           b = txExtractColor (labColor, TX_LAB_B) / 255.0 * 200 - 100.0;
+
+$   double y =  (L + 16.0) / 116.0,
+           x =  y + a / 500.0,
+           z =  y - b / 200.0;
+
+$   x = (x > pow (0.008856, 3))? x*x*x : (x - 16.0/116.0) / 7.787;
+$   y = (y > pow (0.008856, 3))? y*y*y : (y - 16.0/116.0) / 7.787;
+$   z = (z > pow (0.008856, 3))? z*z*z : (z - 16.0/116.0) / 7.787;
+
+$   x *=  95.047;
+$   y *= 100.000;
+$   z *= 108.883;
+
+    // Convert XYZ to sRGB referring to a D65/2 standard illuminant. See https://www.easyrgb.com/en/math.php
+
+$   x /= 100;
+$   y /= 100;
+$   z /= 100;
+
+$   double r = x *  3.2406 + y * -1.5372 + z * -0.4986,
+           g = x * -0.9689 + y *  1.8758 + z *  0.0415;
+$          b = x *  0.0557 + y * -0.2040 + z *  1.0570;
+
+$   r = (r > 0.0031308)? 1.055 * pow (r, 1.0/2.4) - 0.055 : 12.92 * r;
+$   g = (g > 0.0031308)? 1.055 * pow (g, 1.0/2.4) - 0.055 : 12.92 * g;
+$   b = (b > 0.0031308)? 1.055 * pow (b, 1.0/2.4) - 0.055 : 12.92 * b;
+
+$   return _txRGB (r * 255, g * 255, b * 255);
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+double txDeltaE (COLORREF rgbColor1, COLORREF rgbColor2)
+    {
+    // deltaE CIE76. See https://www.easyrgb.com/en/math.php
+
+$1  COLORREF Lab1 = txRGB2Lab (rgbColor1),
+             Lab2 = txRGB2Lab (rgbColor2);
+
+$   double   L1   = txExtractColor (Lab1, TX_LAB_L) / 255.0 * 100,
+             a1   = txExtractColor (Lab1, TX_LAB_A) / 255.0 * 200 - 100.0,
+             b1   = txExtractColor (Lab1, TX_LAB_B) / 255.0 * 200 - 100.0;
+
+$   double   L2   = txExtractColor (Lab2, TX_LAB_L) / 255.0 * 100,
+             a2   = txExtractColor (Lab2, TX_LAB_A) / 255.0 * 200 - 100.0,
+             b2   = txExtractColor (Lab2, TX_LAB_B) / 255.0 * 200 - 100.0;
+
+$   return sqrt ((L2-L1) * (L2-L1) +
+                 (a2-a1) * (a2-a1) +
+                 (b2-b1) * (b2-b1));
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+double txDeltaE94 (COLORREF rgbColor1, COLORREF rgbColor2)
+    {
+    // deltaE CIE94. See https://www.easyrgb.com/en/math.php
+
+$1  COLORREF Lab1 = txRGB2Lab (rgbColor1),
+             Lab2 = txRGB2Lab (rgbColor2);
+
+$   double   L1   = txExtractColor (Lab1, TX_LAB_L) / 255.0 * 100,
+             a1   = txExtractColor (Lab1, TX_LAB_A) / 255.0 * 200 - 100.0,
+             b1   = txExtractColor (Lab1, TX_LAB_B) / 255.0 * 200 - 100.0;
+
+$   double   L2   = txExtractColor (Lab2, TX_LAB_L) / 255.0 * 100,
+             a2   = txExtractColor (Lab2, TX_LAB_A) / 255.0 * 200 - 100.0,
+             b2   = txExtractColor (Lab2, TX_LAB_B) / 255.0 * 200 - 100.0;
+
+$   double c1 = hypot (a1, b1),
+           c2 = hypot (a2, b2),
+
+           dL = L2 - L1,
+           dc = c2 - c1,
+           dE = sqrt (((L1 - L2) * (L1 - L2)) +
+                      ((a1 - a2) * (a1 - a2)) +
+                      ((b1 - b2) * (b1 - b2))),
+
+           dh = dE*dE - dL*dL - dc*dc;
+$          dh = (dh > 0)? sqrt (dh) : 0;
+
+           dc /= (1 + (0.045 * c1)),
+           dh /= (1 + (0.015 * c1));
+
+$   return sqrt (dL*dL + dc*dc + dh*dh);
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+uint64_t txHash (const void* buffer, size_t size)
+    {
+    // DJB2 algorithm, https://en.wikipedia.org/wiki/Daniel_J._Bernstein
+
+$9  uint64_t hash = 5381;
+
+$   for (size_t i = 0; i < size; i++)
+        hash = hash * 33 ^ ((const char*) buffer) [i];
+
+$   return hash;
     }
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -15210,7 +15708,7 @@ $   assert (fmt);
 
 $   _txPrintV (stream, format, n,   fmt);
 
-    if (fmt[0] == '%' && fmt[1] == '.' && fmt[2] == '*') {$ stream << std::setprecision ((std::streamsize) (prec + 1)); }  //-V2006 //-V1028
+    if (fmt[0] == '%' && fmt[1] == '.' && fmt[2] == '*') {$ stream << std::setprecision ((int) (prec + 1)); }  //-V2006 //-V1028
     else {$ TX_ERROR ("\"%%.*\" required to setprecision (%d) in ...\"%s\" while printing %s argument %d in \"%s\"", prec, fmt, txTypename (arg), n, format); }
 
 $   _txPrintV (stream, format, n,   fmt, arg);
@@ -15228,7 +15726,7 @@ $   assert (fmt);
 
 $   _txPrintV (stream, format, n,   fmt);
 
-    if (fmt[0] == '%' && fmt[1] == '*' && fmt[2] == '.' && fmt[3] == '*') {$ stream << std::setw (width) << std::setprecision ((std::streamsize) (prec + 1)); }  //-V2006 //-V1028
+    if (fmt[0] == '%' && fmt[1] == '*' && fmt[2] == '.' && fmt[3] == '*') {$ stream << std::setw (width) << std::setprecision ((int) (prec + 1)); }  //-V2006 //-V1028
     else {$ TX_ERROR ("\"%%*.*\" required to setwidth (%d) and setprecision (%d) in ...\"%s\" while printing %s argument %d in \"%s\"", width, prec, fmt, txTypename (arg), n, format); }
 
 $   _txPrintV (stream, format, n,   fmt, arg);
@@ -15697,37 +16195,40 @@ $   return pw;
 //! @warning Эти макросы могут измениться в будущих версиях. @strike Чтобы вам повеселее жилось. @endstrike
 //!
 //! @title   Назначение: @table
-//!          @tr <tt> $ (var,  [name])        </tt> @td Печать имени и значения переменной или выражения @c var.                               <i>[name] @d необязательное примечание.</i>
-//!          @tr <tt> $_(var,  [name])        </tt> @td То же, что и <tt>$(var),</tt> но без новой строки.                                     <i>[name] @d необязательное примечание.</i>
+//!          @tr <tt> $ (var,  [name])                  </tt> @td Печать имени и значения переменной или выражения @c var.                               <i>[name] @d необязательное примечание.</i>
+//!          @tr <tt> $_(var,  [name])                  </tt> @td То же, что и <tt>$(var),</tt> но без новой строки.                                     <i>[name] @d необязательное примечание.</i>
 //!          @tbr
-//!          @tr <tt> $x (var, [name])        </tt> @td Печать имени и значения переменной или выражения @c var в 16-ричной системе счисления. <i>[name] @d необязательное примечание.</i>
-//!          @tr <tt> $x_(var, [name])        </tt> @td То же, что и <tt>$x(var),</tt> но без новой строки.                                    <i>[name] @d необязательное примечание.</i>
+//!          @tr <tt> $x (var, [name])                  </tt> @td Печать имени и значения переменной или выражения @c var в 16-ричной системе счисления. <i>[name] @d необязательное примечание.</i>
+//!          @tr <tt> $x_(var, [name])                  </tt> @td То же, что и <tt>$x(var),</tt> но без новой строки.                                    <i>[name] @d необязательное примечание.</i>
 //!          @tbr
-//!          @tr <tt> $v (var, cond, [name])  </tt> @td То же, что и <tt>$(var),</tt> но различным цветом в зависимости от условия @c cond.    <i>[name] @d необязательное примечание.</i>
-//!          @tr <tt> $v_(var, cond, [name])  </tt> @td То же, что и <tt>$v(var),</tt> но без новой строки.                                    <i>[name] @d необязательное примечание.</i>
+//!          @tr <tt> $v (var, cond, [name])            </tt> @td То же, что и <tt>$(var),</tt> но различным цветом в зависимости от условия @c cond.    <i>[name] @d необязательное примечание.</i>
+//!          @tr <tt> $v_(var, cond, [name])            </tt> @td То же, что и <tt>$v(var),</tt> но без новой строки.                                    <i>[name] @d необязательное примечание.</i>
 //!          @tbr
-//!          @tr <tt> $do(code)               </tt> @td Печать строки кода, затем выполнение этого кода.
-//!          @tr <tt> $DO(code)               </tt> @td То же, что и <tt>$do(code),</tt> но с паузой (нажмите любую клавишу).
-//!          @tr <tt> $Do(code)               </tt> @td То же, что и <tt>$do(code),</tt> но с паузой (txMessageBox).
+//!          @tr <tt> $do(code)                         </tt> @td Печать строки кода, затем выполнение этого кода.
+//!          @tr <tt> $DO(code)                         </tt> @td То же, что и <tt>$do(code),</tt> но с паузой (нажмите любую клавишу).
+//!          @tr <tt> $Do(code)                         </tt> @td То же, что и <tt>$do(code),</tt> но с паузой (txMessageBox).
 //!          @tbr
-//!          @tr <tt> $$$ (expr)              </tt> @td Печать выражения, его вычисление, печать и возврат значения. @n
-//!                                                     Если выражение содержит оператор "запятая", не взятый в скобки,
-//!                                                     необходимо окружать expr еще одной парой скобок.
-//!          @tr <tt> $$$_(expr)              </tt> @td То же, что и <tt>$$$(expr),</tt>  но вторая печать идет без новой строки.
+//!          @tr <tt> $$$ (expr)                        </tt> @td Печать выражения, его вычисление, печать и возврат значения. @n
+//!                                                               Если выражение содержит оператор "запятая", не взятый в скобки,
+//!                                                               необходимо окружать expr еще одной парой скобок.
+//!          @tr <tt> $$$_(expr)                        </tt> @td То же, что и <tt>$$$(expr),</tt>  но вторая печать идет без новой строки.
 //!          @tbr
-//!          @tr <tt> $$$$ (code)             </tt> @td То же, что и <tt>$$$(expr),</tt>  но для операторов или блоков кода (без возврата значения).
-//!          @tr <tt> $$$$_(code)             </tt> @td То же, что и <tt>$$$$(expr),</tt> но вторая печать идет без новой строки.
+//!          @tr <tt> $$$$ (code)                       </tt> @td То же, что и <tt>$$$(expr),</tt>  но для операторов или блоков кода (без возврата значения).
+//!          @tr <tt> $$$$_(code)                       </tt> @td То же, что и <tt>$$$$(expr),</tt> но вторая печать идет без новой строки.
 //!          @tbr
-//!          @tr <tt> $$                      </tt> @td Печать местоположения в коде.
-//!          @tr <tt> $$_                     </tt> @td Печать местоположения в коде (только имя функции и номер строки).
-//!          @tr <tt> $meow (msg)             </tt> @td То же, что и $$, но еще и печатает сообщение @c msg.
+//!          @tr <tt> $$                                </tt> @td Печать местоположения в коде.
+//!          @tr <tt> $$_                               </tt> @td Печать местоположения в коде (только имя функции и номер строки).
+//!          @tr <tt> $meow (msg)                       </tt> @td То же, что и $$, но еще и печатает сообщение @c msg.
 //!          @tbr
-//!          @tr <tt> $test (cond)            </tt> @td Печать результата теста различным цветом в зависимости от условия @c cond.
-//!          @tr <tt> $unittest (code, expected) </tt> @td Печать результата <b>юнит-теста</b> @c code с ожидаемым результатом @c expected.
+//!          @tr <tt> $test (cond)                      </tt> @td Печать результата теста различным цветом в зависимости от условия @c cond.
+//!          @tr <tt> $unittest (code, expected)        </tt> @td Печать результата <b>юнит-теста</b> @c code с ожидаемым результатом @c expected.
 //!          @tbr
-//!          @tr <tt> $n                      </tt> @td Перевод строки (печать @c '\\n').
-//!          @tr <tt> $nn                     </tt> @td Пустая  строка (печать @c '\\n\\n').
-//!          @tr <tt> $t                      </tt> @td Табуляция      (печать @c '\\t').
+//!          @tr <tt> $ptrHTML (html, ptr, [backColor]) </tt> @td Печать указателя @c ptr в HTML-файл @c html цветом, зависящим от значения указателя,
+//!                                                               для HTML-логов. <i>[backColor] @d необязательный цвет фона, по умолчанию белый.</i>
+//!          @tbr
+//!          @tr <tt> $n                                </tt> @td Перевод строки (печать @c '\\n').
+//!          @tr <tt> $nn                               </tt> @td Пустая  строка (печать @c '\\n\\n').
+//!          @tr <tt> $t                                </tt> @td Табуляция      (печать @c '\\t').
 //!          @endtable
 //!
 //! @title   Установка атрибутов символов консоли: @table
@@ -16116,6 +16617,17 @@ inline T (&_txDumpVar (T (&value) [N], ARGS_)) [N]
     return value;
     }
 
+//-----------------------------------------------------------------------------------------------------------------
+
+inline int $ptrHTML (FILE* html, const void* ptr, COLORREF backColor = TX_WHITE)
+    {
+    COLORREF color = txHash (&ptr, sizeof (ptr)) & 0x00FFFFFF;
+
+    if (txDeltaE94 (color, backColor) < 10) color = ~color & 0x00FFFFFF;
+
+    return fprintf (html, "<font face = \"Monospace\" color = \"#%06lX\">0x%p</font>", color, ptr);
+    }
+
 //=================================================================================================================
 
 inline std::ostream& operator << (std::ostream& stream, const POINT& point)
@@ -16177,7 +16689,7 @@ inline std::ostream& operator << (std::ostream& stream, const RECT& rect)
 
 #if defined (_MSC_VER)
 #undef  _txLocCurSet
-#define _txLocCurSet()                 __txLocCurSet (__FILE__, __LINE__, NULL)
+#define _txLocCurSet()                 _txLocSet (&_txLoc::Cur, __FILE__, __LINE__, NULL)
 #endif
 
 #define txAlphaBlend(...)              ( _txLocCurSet(), txAlphaBlend          (__VA_ARGS__) )
@@ -16195,6 +16707,8 @@ inline std::ostream& operator << (std::ostream& stream, const RECT& rect)
 #define txCreateWindow(...)            ( _txLocCurSet(), txCreateWindow        (__VA_ARGS__) )
 #define txDC(...)                      ( _txLocCurSet(), txDC                  (__VA_ARGS__) )
 #define txDeleteDC(...)                ( _txLocCurSet(), txDeleteDC            (__VA_ARGS__) )
+#define txDeltaE(...)                  ( _txLocCurSet(), txDeltaE              (__VA_ARGS__) )
+#define txDeltaE94(...)                ( _txLocCurSet(), txDeltaE94            (__VA_ARGS__) )
 #define txDemangle(...)                ( _txLocCurSet(), txDemangle            (__VA_ARGS__) )
 #define txDestroyWindow(...)           ( _txLocCurSet(), txDestroyWindow       (__VA_ARGS__) )
 #define txDisableAutoPause(...)        ( _txLocCurSet(), txDisableAutoPause    (__VA_ARGS__) )
@@ -16223,7 +16737,9 @@ inline std::ostream& operator << (std::ostream& stream, const RECT& rect)
 #define txGetTextExtentX(...)          ( _txLocCurSet(), txGetTextExtentX      (__VA_ARGS__) )
 #define txGetTextExtentY(...)          ( _txLocCurSet(), txGetTextExtentY      (__VA_ARGS__) )
 #define txHSL2RGB(...)                 ( _txLocCurSet(), txHSL2RGB             (__VA_ARGS__) )
+#define txHash(...)                    ( _txLocCurSet(), txHash                (__VA_ARGS__) )
 #define txInputBox(...)                ( _txLocCurSet(), txInputBox            (__VA_ARGS__) )
+#define txLab2RGB(...)                 ( _txLocCurSet(), txLab2RGB             (__VA_ARGS__) )
 #define txLine(...)                    ( _txLocCurSet(), txLine                (__VA_ARGS__) )
 #define txLoadImage(...)               ( _txLocCurSet(), txLoadImage           (__VA_ARGS__) )
 #define txLock(...)                    ( _txLocCurSet(), txLock                (__VA_ARGS__) )
@@ -16249,6 +16765,7 @@ inline std::ostream& operator << (std::ostream& stream, const RECT& rect)
 #define txRegQuery(...)                ( _txLocCurSet(), txRegQuery            (__VA_ARGS__) )
 #define txReopenStdio(...)             ( _txLocCurSet(), txReopenStdio         (__VA_ARGS__) )
 #define txRGB2HSL(...)                 ( _txLocCurSet(), txRGB2HSL             (__VA_ARGS__) )
+#define txRGB2Lab(...)                 ( _txLocCurSet(), txRGB2Lab             (__VA_ARGS__) )
 #define txSaveImage(...)               ( _txLocCurSet(), txSaveImage           (__VA_ARGS__) )
 #define txSelectFont(...)              ( _txLocCurSet(), txSelectFont          (__VA_ARGS__) )
 #define txSelectObject(...)            ( _txLocCurSet(), txSelectObject        (__VA_ARGS__) )
@@ -16320,37 +16837,25 @@ using ::std::wstring;
 
 #if defined (_GCC_VER)
 
+    #pragma GCC diagnostic ignored     "-Wunknown-pragmas"
+
     #pragma GCC optimize               "strict-aliasing"
 
     #pragma GCC pop_options
     #pragma GCC diagnostic pop
 
-    #endif
+    #pragma GCC diagnostic warning     "-Wunknown-pragmas"
+
+#endif
 
 #if defined (_CLANG_VER)
-
     #pragma clang diagnostic pop
-
     #endif
 
 //-----------------------------------------------------------------------------------------------------------------
 
 #if defined (_MSC_VER)
-
     #pragma warning (pop)              // Restoring maximum level
-
-    #endif
-
-#if defined (__INTEL_COMPILER)
-
-    #pragma warning (default:  174)    // Remark: expression has no effect
-    #pragma warning (default:  304)    // Remark: access control not specified ("public" by default)
-    #pragma warning (default:  444)    // Remark: destructor for base class "..." is not virtual
-    #pragma warning (default:  522)    // Remark: function redeclared "inline" after being called
-    #pragma warning (default: 1684)    // Conversion from pointer to same-sized integral type (potential portability problem)
-
-    #pragma warning (disable:  981)    // Remark: operands are evaluated in unspecified order
-
     #endif
 
 //! @endcond
@@ -16366,17 +16871,12 @@ using ::std::wstring;
                                                                                                                    
                                                                                                                    
                                                                                                                    
-            
-
-
-
-
-
-
-
-
-
-
+                                                                                                                   
+                                                                                                                   
+                                                                                                                   
+                                                                                                                   
+                                                                                                                   
+        
 
 
 
