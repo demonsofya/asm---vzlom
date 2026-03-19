@@ -25,7 +25,7 @@ const int MUSIC_INTRO_TIME          = 17000;
 
 //-----------------------------------------------------------------------------
 
-const char *DEFAULT_CRACK_FILE_NAME = "CRACKF_1.COM";
+const char * const DEFAULT_CRACK_FILE_NAME = "CRACKF_1.COM";
 
 const int COMPARE_CYCLE_BEGIN = 0x4a;
 const int COMPARE_CYCLE_END   = 0x51;
@@ -38,6 +38,8 @@ HWND CreateVzlomWindow();
 bool CheckIfButtonPressed();
 bool CreateAnimationOnWindow();
 void ChangeTexColorAndSleep(int color);
+
+int CrackFile(FILE *file_to_crack);
 
 //-----------------------------------------------------------------------------
 

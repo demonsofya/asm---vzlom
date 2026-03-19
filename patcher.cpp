@@ -68,6 +68,23 @@ void ChangeTexColorAndSleep(int color) {
     txSleep(100);
 }
 
+int CrackFile(FILE *file_to_crack) {
+
+    assert(file_to_crack);
+
+    if (CheckIfButtonPressed()) { 
+        fseek(file_to_crack, COMPARE_CYCLE_BEGIN, SEEK_SET);
+
+        for (int i = 0; i <= COMPARE_CYCLE_END - COMPARE_CYCLE_BEGIN; i++)
+            fprintf(file_to_crack, "%c", NOP_COMMAND);
+
+        fclose(file_to_crack);
+        
+        txSleep(MUSIC_INTRO_TIME);
+        CreateAnimationOnWindow();
+    }
+}
+
 
 
 
