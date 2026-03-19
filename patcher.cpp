@@ -1,4 +1,5 @@
 #include "TXLib.h"
+#include "patcher.h"
 
 #include <assert.h>
 #include <stdlib.h>
@@ -6,9 +7,6 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "patcher.h"
-
-//HWND VzlomWindow = CreateVzlomWindow();
 
 HWND CreateVzlomWindow() {
 
@@ -21,13 +19,7 @@ HWND CreateVzlomWindow() {
     txBitBlt(0, 0, button_image);
     txPlaySound("ringtone.wav", SND_ASYNC);
 
-    //atexit(DestroyAkinatorWindow);
     return NewVzlomWindow;
-}
-
-void DestroyAkinatorWindow() {
-
-    txDestroyWindow();
 }
 
 bool CheckIfButtonPressed() {
@@ -35,16 +27,17 @@ bool CheckIfButtonPressed() {
     mouse_t mouse = {};
 
     while (true) {
-        if (txMouseButtons() & 2) {         // ëåâàÿ êíîïêà ìûøè
+        if (txMouseButtons() & LEFT_MOUSE_BUTTON_CODE) {         // ëåâàÿ êíîïêà ìûøè
             mouse.x_cord = txMouseX();
             mouse.y_cord = txMouseY();
 
-            if (mouse.x_cord > BUTTON_IMG_WIDTH*0.25   && mouse.x_cord < BUTTON_IMG_WIDTH*0.75 && 
-                mouse.y_cord > BUTTON_IMG_HEIGHT*0.35 && mouse.y_cord < BUTTON_IMG_HEIGHT*0.8) {
+            if (mouse.x_cord > BUTTON_IMG_WIDTH*0.25    && mouse.x_cord < BUTTON_IMG_WIDTH*0.75 && 
+                mouse.y_cord > BUTTON_IMG_HEIGHT*0.35   && mouse.y_cord < BUTTON_IMG_HEIGHT*0.8) {
                 
-                txBitBlt(txDC(), 0, 0, 0, 0, pressed_button_image);
+                txBitBlt(0, 0, pressed_button_image);
                 txTextOut(200, 0, "ÈÄÅÒ ÂÇËÎÌ ÆÎÏÛ...",  txDC());
                 txPlaySound("murder_in_my_mind.wav", SND_ASYNC);
+
                 return true;
             }
 

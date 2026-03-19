@@ -6,18 +6,11 @@
 
 #include "patcher.h"
 
-const char *DEFAULT_CRACK_FILE_NAME = "CRACKF_1.COM";
-
-const int COMPARE_CYCLE_BEGIN = 0x4a;
-const int COMPARE_CYCLE_END   = 0x51;
-const int NOP_COMMAND         = 0x90;
-
 int main(int argc, char *argv[]) {
 
     HWND VzlomWindow = CreateVzlomWindow();
 
     int commands_count = 0;
-    int *output_arr = NULL;
 
     FILE *file_to_crack = NULL;
 
@@ -36,7 +29,7 @@ int main(int argc, char *argv[]) {
 
         fclose(file_to_crack);
         
-        txSleep(17000);
+        txSleep(MUSIC_INTRO_TIME);
         CreateAnimationOnWindow();
     }
     return 0;
